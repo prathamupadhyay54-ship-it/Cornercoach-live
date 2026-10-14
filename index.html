@@ -21,7 +21,7 @@
 <div class="grid">
 <section>
 <div class="panel">
-<h2>📷 Live camera</h2><p class="sub">Prop your phone up so your whole body is visible, including feet and hands.</p>
+<h2>📷 Live camera</h2><p class="sub">Choose a drill below. CornerCoach will check only the body parts that drill needs.</p>
 <div class="camera" id="cameraBox"><div class="camplaceholder" id="placeholder"><div class="emoji">🥊</div><b>Camera is off</b><p>Start the camera to begin live feedback.</p></div><video id="cam" autoplay muted playsinline></video><canvas id="overlay"></canvas><div class="livebadge" id="liveBadge">● LIVE</div></div>
 <div class="health-strip" aria-label="App status">
 <div class="health-chip" id="healthCamera"><span class="health-icon">○</span><span>Camera</span></div>
@@ -36,7 +36,7 @@
 <div class="panel settings"><h2>⚙️ Coaching setup</h2>
 <label for="view">Camera angle</label><select id="view"><option value="front">Front view</option><option value="side">Side view</option></select>
 <label for="stance">Your stance</label><select id="stance"><option value="orthodox">Orthodox (left foot/hand forward)</option><option value="southpaw">Southpaw (right foot/hand forward)</option><option value="unknown">Not sure yet</option></select>
-<label for="focus">Current drill</label><select id="focus"><option value="stance">Stance and balance</option><option value="guard">Guard and chin</option><option value="jab">Jab practice</option><option value="shadow">Light shadowboxing</option></select>
+<label for="focus">Current drill / framing</label><select id="focus"><option value="stance">Stance and balance · Full body</option><option value="guard">Guard and chin · Upper body</option><option value="jab">Jab practice · Upper body</option><option value="shadow">Light shadowboxing · Upper body</option><option value="footwork">Footwork · Hips to feet</option></select><div class="coachbox" style="margin-top:10px"><strong id="framingTitle">Full-body framing</strong><div class="small" id="framingHint">Keep your head, shoulders, hips, knees and both feet visible.</div></div>
 </div>
 </section>
 <section>
@@ -46,10 +46,10 @@
 <div class="stat"><span>Balance cue</span><strong id="balance">—</strong></div>
 <div class="stat"><span>Guard cue</span><strong id="guard">—</strong></div>
 <div class="stat"><span>Session time</span><strong id="elapsed">00:00</strong></div>
-<div class="coachbox" aria-live="polite"><h3 id="coachTitle">Your coach is waiting</h3><div class="coachmsg" id="coachText">Start the camera and stand far enough away for your full body to fit in frame. Begin slowly.</div></div>
+<div class="coachbox" aria-live="polite"><h3 id="coachTitle">Your coach is waiting</h3><div class="coachmsg" id="coachText">Start the camera, select a drill, and fit the required body parts into frame. Begin slowly.</div></div>
 <button class="btn secondary wide" id="recalibrate" disabled>Recheck posture</button>
 </div>
-<div class="panel"><h2>🎯 How to get useful feedback</h2><ul class="tips"><li>Place the phone securely at about waist-to-chest height, not in your hand.</li><li>Use bright, even lighting and keep your whole body in frame.</li><li>Start with a relaxed stance and guard. Do not throw hard punches near your phone.</li><li>Move slowly at first. The detector may lose hands or ankles when they move quickly or leave the frame.</li></ul>
+<div class="panel"><h2>🎯 How to get useful feedback</h2><ul class="tips"><li>Place the phone securely at about waist-to-chest height, not in your hand.</li><li>Use bright, even lighting. The framing requirement changes with your selected drill.</li><li>Start with a relaxed stance and guard. Do not throw hard punches near your phone.</li><li>Move slowly at first. The detector may lose hands or ankles when they move quickly or leave the frame.</li></ul>
 <div class="coachbox"><h3>Safety first</h3><div class="coachmsg">Train in clear space. Do not use this prototype for sparring, impact timing, injury assessment, or as proof that your technique is correct. Stop if you feel pain, dizzy, or unwell.</div></div>
 </div>
 </section></div>
@@ -70,42 +70,65 @@ async function loadPose(){
  try{return await initPromise}catch(e){initPromise=null;throw e}
 }
 function point(p){return !!p&&Number.isFinite(p.x)&&Number.isFinite(p.y)&&(p.visibility==null||p.visibility>.35)}
+function modeInfo(){
+ const focus=$('focus').value;
+ if(focus==='stance')return {name:'Full-body framing',hint:'Keep your head, shoulders, hips, knees and both feet visible.',ids:[11,12,13,14,15,16,23,24,25,26,27,28],required:[11,12,23,24,25,26,27,28],connections:[[11,12],[11,13],[13,15],[12,14],[14,16],[11,23],[12,24],[23,24],[23,25],[25,27],[24,26],[26,28],[15,19],[16,20]],label:'Full body'};
+ if(focus==='footwork')return {name:'Footwork framing',hint:'Keep both hips, knees and ankles visible. Your head and hands can be outside the frame.',ids:[23,24,25,26,27,28],required:[23,24,25,26,27,28],connections:[[23,24],[23,25],[25,27],[24,26],[26,28]],label:'Hips to feet'};
+ return {name:'Upper-body framing',hint:'Keep your head, both shoulders, elbows and hands visible. Your feet can be outside the frame.',ids:[0,11,12,13,14,15,16],required:[0,11,12,13,14,15,16],connections:[[11,12],[11,13],[13,15],[12,14],[14,16]],label:'Upper body'};
+}
+function updateFramingHint(){const m=modeInfo();$('framingTitle').textContent=m.name;$('framingHint').textContent=m.hint}
 function drawPose(lm){
  resizeCanvas();ctx.clearRect(0,0,1,1);
- // mirrored preview: invert x for overlay alignment
- const connections=[[11,12],[11,13],[13,15],[12,14],[14,16],[11,23],[12,24],[23,24],[23,25],[25,27],[24,26],[26,28],[15,19],[16,20]];
+ const m=modeInfo();
+ // Mirrored preview: invert x for overlay alignment. Chalk guides are intentionally reserved for Stage 3.
  ctx.lineWidth=.006;ctx.strokeStyle='#8fe3a8';ctx.fillStyle='#ff4d4d';
- for(const [a,b] of connections){if(point(lm[a])&&point(lm[b])){ctx.beginPath();ctx.moveTo(1-lm[a].x,lm[a].y);ctx.lineTo(1-lm[b].x,lm[b].y);ctx.stroke()}}
- for(const i of [11,12,13,14,15,16,23,24,25,26,27,28])if(point(lm[i])){ctx.beginPath();ctx.arc(1-lm[i].x,lm[i].y,.009,0,Math.PI*2);ctx.fill()}
+ for(const [a,b] of m.connections){if(point(lm[a])&&point(lm[b])){ctx.beginPath();ctx.moveTo(1-lm[a].x,lm[a].y);ctx.lineTo(1-lm[b].x,lm[b].y);ctx.stroke()}}
+ for(const i of m.ids)if(point(lm[i])){ctx.beginPath();ctx.arc(1-lm[i].x,lm[i].y,.009,0,Math.PI*2);ctx.fill()}
 }
 function assess(lm){
- const ids=[11,12,13,14,15,16,23,24,25,26,27,28],visible=ids.filter(i=>point(lm[i])).length;
- $('visibility').textContent=visible>=10?'Good':visible>=7?'Partial':'Poor';
- $('visibility').className=visible>=10?'green':visible>=7?'yellow':'red';
- if(visible<7){$('balance').textContent='Move into frame';$('guard').textContent='Hands not clear';$('coachTitle').textContent='I can’t see enough yet';$('coachText').textContent='Step back, improve lighting, and make sure your shoulders, hands, hips, knees, and feet are visible.';return}
- const midShoulder=(lm[11].x+lm[12].x)/2,midHip=(lm[23].x+lm[24].x)/2;
- const shoulderTilt=Math.abs(lm[11].y-lm[12].y),hipTilt=Math.abs(lm[23].y-lm[24].y);
- const wristY=(lm[15].y+lm[16].y)/2,shoulderY=(lm[11].y+lm[12].y)/2;
- const wrists=[lm[15],lm[16]],shoulders=[lm[11],lm[12]];
- const handsVisible=wrists.every(point),handsHigh=handsVisible&&wrists.every((p,i)=>p.y<shoulders[i].y+.10);
- const hipsVisible=point(lm[23])&&point(lm[24]),feetVisible=[25,26,27,28].filter(i=>point(lm[i])).length>=3;
- $('balance').textContent=feetVisible?(shoulderTilt>.09||hipTilt>.10?'Check level shoulders':'Feet visible'):'Feet out of frame';
- $('balance').className=feetVisible&&shoulderTilt<.09?'green':'yellow';
- $('guard').textContent=!handsVisible?'Hands unclear':handsHigh?'Hands near guard':'Bring hands up';
- $('guard').className=handsHigh?'green':'yellow';
+ const m=modeInfo(),visible=m.required.filter(i=>point(lm[i])).length,required=m.required.length;
+ const ratio=visible/required;
+ $('visibility').textContent=ratio>=.9?'Good':ratio>=.65?'Partial':'Poor';
+ $('visibility').className=ratio>=.9?'green':ratio>=.65?'yellow':'red';
+ const enough=ratio>=.75;
+ health('healthBody',enough?'ok':ratio>=.4?'wait':'bad','Body');
+ health('healthCoach',enough?'ok':'wait','Feedback');
+ const handsVisible=point(lm[15])&&point(lm[16]);
+ const handsHigh=handsVisible&&point(lm[11])&&point(lm[12])&&lm[15].y<lm[11].y+.10&&lm[16].y<lm[12].y+.10;
+ const feetVisible=[25,26,27,28].filter(i=>point(lm[i])).length>=3;
+ const shouldersVisible=point(lm[11])&&point(lm[12]);
+ const hipsVisible=point(lm[23])&&point(lm[24]);
+ const shoulderTilt=shouldersVisible?Math.abs(lm[11].y-lm[12].y):0;
+ const hipTilt=hipsVisible?Math.abs(lm[23].y-lm[24].y):0;
  const focus=$('focus').value;
- let title='Good: keep it relaxed',message='Stay balanced, breathe, and return to guard after every punch.';
- if(!feetVisible){title='Show your feet';message='Step back until your feet and ankles are visible. I cannot assess your base without them.'}
- else if(!handsVisible){title='Hands not tracked';message='Slow down and keep both hands visible. Fast punches can blur or disappear from pose tracking.'}
- else if(!handsHigh){title='Guard check';message='For a basic guard drill, bring your hands back toward cheek level and keep your chin gently tucked. This estimate only uses wrist height.'}
- else if(shoulderTilt>.09){title='Check your posture';message='Your shoulders look uneven in this frame. Relax and reset your stance; a camera angle can affect this estimate.'}
- else if(focus==='jab'){title='Jab drill';message='Extend the lead hand smoothly, keep the other hand near your cheek, then return to guard. This tracker does not verify punch mechanics.'}
- else if(focus==='shadow'){title='Easy shadowboxing';message='Keep the pace light. Move, punch with control, and reset your stance. Avoid speed until the basics feel steady.'}
- else if(focus==='guard'){title='Guard drill';message='Keep hands near cheek level, elbows relaxed, and chin gently tucked. Don’t tense your shoulders.'}
- else {title='Stance check';message='Keep knees soft, feet comfortably apart, and weight balanced. Reset rather than forcing an uncomfortable stance.'}
- $('coachTitle').textContent=title;$('coachText').textContent=message;
+ if(!enough){
+   $('balance').textContent='Reframe: '+m.label;$('balance').className='yellow';
+   $('guard').textContent=(focus==='guard'||focus==='jab'||focus==='shadow')?(handsVisible?'Hands detected':'Hands not clear'):'—';$('guard').className='yellow';
+   $('coachTitle').textContent='Bring the required joints into frame';
+   $('coachText').textContent=focus==='stance'?'For stance, move the phone farther away until your shoulders, hips, knees and both feet are visible.':focus==='footwork'?'For footwork, aim the camera at your hips through both feet. Your head and hands do not need to be visible.':'For this upper-body drill, keep your shoulders, elbows and hands visible. You do not need to show your feet.';
+   return;
+ }
+ if(focus==='footwork'){
+   $('balance').textContent=hipTilt>.12?'Check hip alignment':'Legs and feet visible';$('balance').className=hipTilt>.12?'yellow':'green';$('guard').textContent='Not needed for this drill';$('guard').className='';
+   $('coachTitle').textContent=hipTilt>.12?'Check your hip alignment':'Footwork frame ready';$('coachText').textContent=hipTilt>.12?'Your hips look uneven in this view. Reset gently; camera angle can affect this estimate.':'Good framing. Practise small, controlled steps and return to a balanced base. This version checks visibility, not the quality of each step.';
+ }else if(focus==='stance'){
+   $('balance').textContent=(shoulderTilt>.09||hipTilt>.10)?'Check alignment':'Full body visible';$('balance').className=(shoulderTilt>.09||hipTilt>.10)?'yellow':'green';$('guard').textContent=handsVisible?(handsHigh?'Hands near guard':'Bring hands up'):'Hands unclear';$('guard').className=handsVisible&&handsHigh?'green':'yellow';
+   if(!handsVisible){$('coachTitle').textContent='Hands not tracked';$('coachText').textContent='Keep both hands visible near your face while holding a comfortable stance.'}
+   else if(!handsHigh){$('coachTitle').textContent='Guard check';$('coachText').textContent='Bring your hands toward cheek level, keep elbows relaxed, and tuck your chin gently.'}
+   else if(shoulderTilt>.09||hipTilt>.10){$('coachTitle').textContent='Check your alignment';$('coachText').textContent='Your shoulders or hips look uneven in this frame. Reset comfortably; camera angle can affect this estimate.'}
+   else{$('coachTitle').textContent='Stance frame ready';$('coachText').textContent='Keep knees soft, feet comfortably apart, hands up, and weight balanced. This is a basic visual estimate, not a full technique assessment.'}
+ }else{
+   $('balance').textContent=shouldersVisible&&shoulderTilt>.09?'Check shoulder level':'Upper body visible';$('balance').className=shouldersVisible&&shoulderTilt>.09?'yellow':'green';$('guard').textContent=!handsVisible?'Hands unclear':handsHigh?'Hands near guard':'Bring hands up';$('guard').className=handsVisible&&handsHigh?'green':'yellow';
+   if(!handsVisible){$('coachTitle').textContent='Hands not tracked';$('coachText').textContent='Keep both hands visible and move slowly enough for the camera to track them.'}
+   else if(!handsHigh){$('coachTitle').textContent='Guard check';$('coachText').textContent='Bring your hands back toward cheek level and keep your chin gently tucked.'}
+   else if(focus==='jab'){$('coachTitle').textContent='Jab drill';$('coachText').textContent='Extend the lead hand smoothly, keep the other hand near your cheek, then return to guard. This tracker does not verify punch mechanics.'}
+   else if(focus==='shadow'){$('coachTitle').textContent='Easy shadowboxing';$('coachText').textContent='Keep the pace light. Move and punch with control, then reset your guard. Avoid speed until the basics feel steady.'}
+   else{$('coachTitle').textContent='Guard frame ready';$('coachText').textContent='Keep hands near cheek level, elbows relaxed, and chin gently tucked. Your feet can remain outside the frame for this drill.'}
+ }
 }
-function loop(now){if(!stream)return;raf=requestAnimationFrame(loop);if(video.readyState<2||now-lastDetect<100)return;lastDetect=now;try{const result=landmarker.detectForVideo(video,now);if(result.landmarks&&result.landmarks[0]){latest=result.landmarks[0];drawPose(latest);assess(latest);$('poseState').textContent='Tracking';$('poseState').className='green';setStatus('Camera and pose tracking are active.')}else{ctx.clearRect(0,0,canvas.width,canvas.height);$('poseState').textContent='No body detected';$('poseState').className='yellow';$('visibility').textContent='Not detected';$('balance').textContent='—';$('guard').textContent='—';$('coachTitle').textContent='I can see the camera, not your pose yet';$('coachText').textContent='Move back so your head, shoulders, hips, knees and feet are visible. Face the camera, improve lighting, and hold still for 2 seconds.';setStatus('Camera is working; no body landmarks detected yet.')} }catch(e){console.error('Pose detection frame failed:',e);$('poseState').textContent='Detection error';$('poseState').className='red';$('coachTitle').textContent='Pose tracking error';$('coachText').textContent=(e&&e.message)?e.message:'The pose detector failed on a video frame.';setStatus('Camera is on, but pose tracking failed: '+((e&&e.message)||e));}}
+$('focus').addEventListener('change',()=>{updateFramingHint();if(latest)assess(latest)});
+updateFramingHint();
+function loop(now){if(!stream)return;raf=requestAnimationFrame(loop);if(video.readyState<2||now-lastDetect<100)return;lastDetect=now;try{const result=landmarker.detectForVideo(video,now);if(result.landmarks&&result.landmarks[0]){latest=result.landmarks[0];drawPose(latest);assess(latest);$('poseState').textContent='Tracking';$('poseState').className='green';setStatus('Camera and pose tracking are active for '+modeInfo().label.toLowerCase()+'.')}else{ctx.clearRect(0,0,canvas.width,canvas.height);$('poseState').textContent='No body detected';$('poseState').className='yellow';$('visibility').textContent='Not detected';$('balance').textContent='—';$('guard').textContent='—';$('coachTitle').textContent='I can see the camera, not your pose yet';$('coachText').textContent='Face the camera and hold still for 2 seconds. Frame the body parts required for your selected drill: '+modeInfo().hint;health('healthBody','wait','Body');health('healthCoach','wait','Feedback');setStatus('Camera is working; no body landmarks detected yet.')} }catch(e){console.error('Pose detection frame failed:',e);$('poseState').textContent='Detection error';$('poseState').className='red';$('coachTitle').textContent='Pose tracking error';$('coachText').textContent=(e&&e.message)?e.message:'The pose detector failed on a video frame.';health('healthBody','bad','Body');health('healthCoach','bad','Feedback');setStatus('Camera is on, but pose tracking failed: '+((e&&e.message)||e));}}
 $('start').onclick=async()=>{
  $('start').disabled=true;
  try {

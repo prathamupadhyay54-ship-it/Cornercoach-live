@@ -45,6 +45,11 @@ body{background:linear-gradient(180deg,rgba(8,8,9,.68),rgba(8,8,9,.76)),url("dat
 @keyframes appReveal{to{opacity:1}}
 @media(max-width:420px){.splash-wordmark{font-size:clamp(55px,16.5vw,76px);letter-spacing:-.075em}.splash-rule{width:88%;height:3px}.splash-rule .rule-center{left:55.5%;width:18%}.splash-credit{letter-spacing:.13em;font-size:clamp(10px,2.9vw,13px)}}
 @media(prefers-reduced-motion:reduce){.splash-box,.splash-one,.splash-ing,.splash-rule,.splash-credit,.skip-intro,.app{animation-duration:.01ms!important;animation-delay:0ms!important;animation-iteration-count:1!important;opacity:1;transform:none;filter:none}.welcome-splash{transition:none}}
+
+/* BOX1NG v3-4 unified app */
+.page{display:none}.page.active{display:block}.app-nav{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 20px}.app-nav button{background:#1b1d1f;color:#eee;border:1px solid #343638;border-radius:999px;padding:9px 12px;font-weight:750}.app-nav button.active{border-color:#ef3c3c;color:#ff7777}.hero-panel{background:linear-gradient(145deg,#191a1b,#101112);border:1px solid #333;border-radius:22px;padding:clamp(18px,4vw,30px);margin-bottom:18px}.hero-title{font-size:clamp(28px,6vw,46px);line-height:1.03;letter-spacing:-1.5px;font-weight:950;margin:0 0 8px}.hero-title .one{color:#f5bf45}.hero-credit{color:#aaa;letter-spacing:2px;font-size:12px}.menu-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.menu-card{position:relative;text-align:left;min-height:150px;padding:17px;border-radius:17px;border:1px solid #653030;background:linear-gradient(145deg,#241819,#191516);color:#f7f7f7;cursor:pointer;transition:transform .18s,border-color .18s,background .18s}.menu-card:active{transform:scale(.985)}.menu-card:hover,.menu-card:focus-visible{border-color:#f04444;outline:none;background:#2b1b1c}.menu-card .card-icon{font-size:25px;display:block;margin-bottom:13px;color:#ff5555}.menu-card strong{display:block;font-size:18px;margin-bottom:6px}.menu-card small{color:#b9b9b9;font-size:13px;line-height:1.4;display:block}.section-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:8px 0 14px}.section-head h1{margin:0;font-size:clamp(25px,5vw,36px)}.lesson-list{display:grid;gap:10px}.lesson-card{background:#191b1d;border:1px solid #343638;border-radius:15px;padding:14px;display:flex;align-items:center;gap:12px}.lesson-num{flex:0 0 42px;height:42px;display:grid;place-items:center;background:#321b1d;color:#ff7777;border-radius:12px;font-weight:900}.lesson-card h3{margin:0 0 3px;font-size:16px}.lesson-card p{margin:0;color:#aaa;font-size:13px}.lesson-card .btn{margin-left:auto;white-space:nowrap}.field-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.field{display:flex;flex-direction:column;gap:6px;margin:8px 0}.field label{color:#bbb;font-size:13px}.field input,.field select,.field textarea,.feedback-area{width:100%;border:1px solid #3a3d3f;background:#101112;color:#f5f5f5;border-radius:10px;padding:12px;font:inherit}.field input[type=file]{padding:8px}.profile-head{display:flex;align-items:center;gap:15px;margin-bottom:16px}.avatar{width:82px;height:82px;border-radius:50%;background:#302022;border:2px solid #ed4545;display:grid;place-items:center;overflow:hidden;font-size:32px;color:#fff;font-weight:900;flex-shrink:0}.avatar img{width:100%;height:100%;object-fit:cover}.metric-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.metric{background:#191b1d;border:1px solid #343638;border-radius:14px;padding:15px}.metric small{color:#aaa;display:block}.metric strong{font-size:25px;display:block;margin-top:5px}.red-text{color:#ff6565}.notice{padding:12px;border-radius:11px;background:#211819;border:1px solid #633030;color:#ddd;font-size:13px}.success-note{color:#91e7a6;font-size:13px}.error-note{color:#ff8d8d;font-size:13px}.pill-tag{display:inline-block;background:#281719;color:#ff8989;border:1px solid #5b2b2b;padding:4px 8px;border-radius:999px;font-size:11px;font-weight:800}.day-row{display:flex;gap:6px;flex-wrap:wrap}.day-chip{background:#1b1d1f;border:1px solid #393c3e;border-radius:9px;padding:8px 10px;color:#ddd}.day-chip.done{background:#173321;border-color:#2b6b42;color:#a4efb6}.inline-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.empty-state{padding:22px;text-align:center;color:#aaa;border:1px dashed #45484a;border-radius:14px}.page-footer{color:#777;font-size:12px;margin:20px 0}.hidden{display:none!important}
+@media(max-width:480px){.menu-grid{gap:9px}.menu-card{padding:14px;min-height:142px}.menu-card strong{font-size:16px}.menu-card small{font-size:12px}.field-grid{grid-template-columns:1fr}.lesson-card{align-items:flex-start;flex-wrap:wrap}.lesson-card .btn{margin-left:54px}.hero-panel{border-radius:18px}}
+
 </style></head>
 <body>
 <div id="welcomeSplash" class="welcome-splash" role="status" aria-label="BOX1NG">
@@ -56,7 +61,31 @@ body{background:linear-gradient(180deg,rgba(8,8,9,.68),rgba(8,8,9,.76)),url("dat
   <button type="button" class="skip-intro" id="skipIntro">Skip intro</button>
 </div>
 <main class="app">
-<header class="top"><div class="brand">🥊 BOX<span>1</span>NG</div><div class="pill">REAL-TIME CAMERA MODE</div></header>
+<header class="top"><div class="brand">🥊 BOX<span>1</span>NG</div><div class="pill">TRAIN • LEARN • IMPROVE</div></header>
+<nav class="app-nav" aria-label="Main navigation">
+<button type="button" class="active" data-page="homePage">Home</button><button type="button" data-page="libraryPage">Learn</button><button type="button" data-page="liveCoachPage">Live Coach</button><button type="button" data-page="workoutsPage">Workouts</button><button type="button" data-page="profilePage">Profile</button>
+</nav>
+<section id="homePage" class="page active">
+<div class="hero-panel"><div class="hero-title">BOX<span class="one">1</span>NG</div><div class="hero-credit">BY: PRATHAM UPADHYAY</div><p class="intro" style="margin:18px 0 0;color:#ddd">Learn the fundamentals. Practise with purpose.</p></div>
+<div class="section-head"><h1>Training menu</h1><span class="pill-tag">V3.0</span></div>
+<div class="menu-grid">
+<button class="menu-card" data-page="libraryPage"><span class="card-icon">▤</span><strong>Learn Boxing</strong><small>Step-by-step lessons from stance to combinations.</small></button>
+<button class="menu-card" data-page="liveCoachPage"><span class="card-icon">⌗</span><strong>Live Coach</strong><small>Camera, body tracking and posture feedback.</small></button>
+<button class="menu-card" data-page="workoutsPage"><span class="card-icon">◷</span><strong>Workouts</strong><small>Build a routine, rounds, drills and rest periods.</small></button>
+<button class="menu-card" data-page="progressPage"><span class="card-icon">▥</span><strong>My Progress</strong><small>Training days, lesson progress and 🥊 streak.</small></button>
+<button class="menu-card" data-page="profilePage"><span class="card-icon">◉</span><strong>My Profile</strong><small>Your details, goals, diet and preferences.</small></button>
+</div>
+<div class="panel" style="margin-top:16px"><h2>Your next round starts here.</h2><p class="sub" style="margin-bottom:0">Choose a lesson, practise it in Live Coach, and track your progress. Your saved settings stay in this browser on this device.</p></div>
+</section>
+<section id="libraryPage" class="page">
+<div class="section-head"><h1>Learn Boxing</h1><span class="pill-tag">3.1 • LIBRARY</span></div>
+<p class="intro">Learn one skill at a time. Open a lesson to read the steps, then practise it in Live Coach. Lessons are a starter curriculum; we will add licensed videos and original demonstrations as the library grows.</p>
+<div class="lesson-list" id="lessonList"></div>
+<div class="notice" style="margin-top:14px">Camera checks are estimates, not a certification of boxing technique. Practise slowly in a clear space.</div>
+</section>
+<section id="liveCoachPage" class="page">
+<div class="section-head"><h1>Live Coach</h1><span class="pill-tag">3.2</span></div>
+<p class="intro">Start the camera and select a drill. Your current prototype's camera and pose-tracking code remains in this page.</p>
 <h1>Fix your form<br>while you move.</h1>
 <p class="intro">Use your phone camera for live posture feedback. This prototype tracks visible body landmarks in your browser and gives basic stance and guard cues. It is not a professional boxing coach and cannot reliably judge punch technique or safety.</p>
 <div class="grid">
@@ -95,7 +124,61 @@ body{background:linear-gradient(180deg,rgba(8,8,9,.68),rgba(8,8,9,.76)),url("dat
 <div class="coachbox"><h3>Safety first</h3><div class="coachmsg">Train in clear space. Do not use this prototype for sparring, impact timing, injury assessment, or as proof that your technique is correct. Stop if you feel pain, dizzy, or unwell.</div></div>
 </div>
 </section></div>
-<footer class="disclaimer">CornerCoach Live prototype · Uses MediaPipe Pose Landmarker through Google's hosted JavaScript package and model. If the camera or model cannot load in your browser, use Chrome and allow camera access.</footer>
+<footer class="disclaimer">BOX1NG Live Coach prototype · Uses MediaPipe Pose Landmarker through hosted JavaScript and model assets. Camera/model availability depends on browser permissions and network access.</footer>
+</section>
+<section id="workoutsPage" class="page">
+<div class="section-head"><h1>Workouts</h1><span class="pill-tag">3.3</span></div>
+<p class="intro">Create a starter workout based on your goal, available time and equipment. This first version builds a simple routine locally; it does not replace individual coaching.</p>
+<div class="panel">
+<div class="field-grid">
+<div class="field"><label for="workoutGoal">Training goal</label><select id="workoutGoal"><option>Basic boxing</option><option>Fitness and conditioning</option><option>Amateur boxing preparation</option></select></div>
+<div class="field"><label for="workoutPlace">Where will you train?</label><select id="workoutPlace"><option value="home">Home, no equipment</option><option value="homekit">Home, some equipment</option><option value="gym">Gym or boxing club</option></select></div>
+<div class="field"><label for="workoutDays">Days per week</label><select id="workoutDays"><option>2</option><option selected>3</option><option>4</option><option>5</option><option>6</option></select></div>
+<div class="field"><label for="workoutMinutes">Minutes per session</label><select id="workoutMinutes"><option>15</option><option selected>30</option><option>45</option><option>60</option></select></div>
+</div>
+<div class="field"><label for="limitations">Injuries or movements to avoid (optional)</label><input id="limitations" maxlength="250" placeholder="E.g. avoid jumping; knee discomfort"></div>
+<button class="btn primary" id="buildWorkout">Build my starter workout</button>
+<div id="workoutOutput" class="coachbox hidden" aria-live="polite"></div>
+</div>
+<div class="panel"><h2>Indian food preferences</h2><p class="sub">Choose a preference in Profile to get general meal ideas alongside your routine.</p><button class="btn secondary" data-page="profilePage">Set up my profile</button></div>
+</section>
+<section id="progressPage" class="page">
+<div class="section-head"><h1>My Progress</h1><span class="pill-tag">4.1</span></div>
+<div class="metric-grid">
+<div class="metric"><small>Programme day</small><strong id="progTotalDays">0</strong></div><div class="metric"><small>🥊 Current streak</small><strong id="progStreak">0 days</strong></div><div class="metric"><small>Training days</small><strong id="progTrainingDays">0</strong></div><div class="metric"><small>Lessons completed</small><strong id="progLessons">0</strong></div>
+</div>
+<div class="panel" style="margin-top:14px"><h2>Training calendar</h2><p class="sub">Mark today as trained after you finish a session. Rest days are okay; consistency matters more than punishment.</p><div id="weekCalendar" class="day-row"></div><div class="inline-actions"><button class="btn primary" id="markTraining">🥊 Mark today trained</button><button class="btn secondary" id="clearTraining">Clear training history</button></div><p id="progressMessage" class="small" aria-live="polite"></p></div>
+<div class="panel"><h2>Lesson progress</h2><div id="progressLessonList" class="lesson-list"></div></div>
+</section>
+<section id="profilePage" class="page">
+<div class="section-head"><h1>My Profile</h1><span class="pill-tag">4.0</span></div>
+<div class="panel">
+<div class="profile-head"><div class="avatar" id="profileAvatar">🥊</div><div><h2 id="profileDisplayName">Your profile</h2><p class="sub" style="margin:3px 0 0">Personal training settings</p><label for="profilePhoto" class="small">Choose profile picture</label><input id="profilePhoto" type="file" accept="image/*"></div></div>
+<div class="field-grid">
+<div class="field"><label for="fullName">Full name</label><input id="fullName" maxlength="80" placeholder="Your full name" autocomplete="name"></div>
+<div class="field"><label for="age">Age</label><input id="age" type="number" min="5" max="100" placeholder="Age"></div>
+<div class="field"><label for="heightCm">Height (cm)</label><input id="heightCm" type="number" min="50" max="250" placeholder="e.g. 170"></div>
+<div class="field"><label for="weightKg">Weight (kg)</label><input id="weightKg" type="number" min="10" max="350" step="0.1" placeholder="e.g. 65"></div>
+<div class="field"><label for="experience">Experience</label><select id="experience"><option>Beginner</option><option>Some experience</option><option>Experienced</option></select></div>
+<div class="field"><label for="goal">Main goal</label><select id="goal"><option>Basic boxing</option><option>Fitness and conditioning</option><option>Amateur boxing preparation</option></select></div>
+<div class="field"><label for="diet">Diet preference</label><select id="diet"><option value="vegetarian">Indian vegetarian</option><option value="vegan">Vegan</option><option value="nonvegetarian">Non-vegetarian</option></select></div>
+<div class="field"><label for="trainingPlace">Training place</label><select id="trainingPlace"><option value="home">Home, no equipment</option><option value="homekit">Home, some equipment</option><option value="gym">Gym or boxing club</option></select></div>
+<div class="field"><label for="startDate">Programme start date</label><input id="startDate" type="date"></div>
+<div class="field"><label for="daysPerWeek">Training days per week</label><select id="daysPerWeek"><option>2</option><option selected>3</option><option>4</option><option>5</option><option>6</option></select></div>
+</div>
+<div class="field"><label for="foodAvoid">Allergies or foods to avoid (optional)</label><input id="foodAvoid" maxlength="250" placeholder="List foods you need to avoid"></div>
+<div class="field"><label for="profileNotes">Other training notes (optional)</label><textarea id="profileNotes" rows="3" maxlength="500" placeholder="Equipment, session length, preferences..." ></textarea></div>
+<button class="btn primary" id="saveProfile">Save profile</button> <span id="profileMessage" class="small" aria-live="polite"></span>
+</div>
+<div class="panel"><h2>Your BMI estimate</h2><p class="sub">For adults only. BMI is a rough screening measure, not a diagnosis or a boxing fitness score.</p><div id="bmiResult">Add your height, weight and age, then save your profile.</div></div>
+<div class="panel"><h2>General Indian meal ideas</h2><p id="dietIdeas" class="coachmsg">Save your profile to see ideas matching your food preference.</p><p class="small">These are general ideas, not medical nutrition advice. Consider a dietitian for medical needs, allergies or a competition-specific plan.</p></div>
+<div class="panel"><h2>Suggestions and bug reports</h2><p class="sub">Inappropriate language is blocked before a suggestion can be submitted. Feedback is saved only in this browser in this prototype.</p>
+<div class="field"><label for="feedbackType">Feedback type</label><select id="feedbackType"><option>UI improvement</option><option>Bug report</option><option>New feature</option><option>Lesson content</option></select></div>
+<div class="field"><label for="feedbackText">Your suggestion</label><textarea id="feedbackText" rows="4" maxlength="800" placeholder="Describe the issue or improvement..."></textarea></div>
+<button class="btn primary" id="submitFeedback">Submit suggestion</button><p id="feedbackMessage" class="small" aria-live="polite"></p><div id="feedbackHistory"></div>
+</div>
+</section>
+<footer class="page-footer">BOX1NG • Prototype versions 3.0–4.3 • Your profile and progress are stored locally on this device/browser.</footer>
 </main>
 <script type="module">
 const $=id=>document.getElementById(id);
@@ -301,6 +384,54 @@ $('start').onclick=async()=>{
 };
 function stop(){if(stream){stream.getTracks().forEach(t=>t.stop());stream=null}cancelAnimationFrame(raf);clearInterval(clock);clock=null;video.srcObject=null;ctx.clearRect(0,0,canvas.width,canvas.height);$('placeholder').style.display='block';$('liveBadge').classList.remove('on');$('start').disabled=false;$('stop').disabled=true;$('recalibrate').disabled=true;$('poseState').textContent='Camera off';$('poseState').className='yellow';setStatus('Camera stopped.');resetHealth();health('healthCamera','bad','Camera');}
 $('stop').onclick=stop;$('recalibrate').onclick=()=>{if(latest)assess(latest);else $('coachText').textContent='Wait until your body is detected.'};window.addEventListener('resize',()=>{if(stream)resizeCanvas()});window.addEventListener('pagehide',stop);
+
+
+
+// BOX1NG v3.0–4.3: navigation, starter library, profile, training plan and local progress.
+(function(){
+ const $=id=>document.getElementById(id);
+ const STORE='box1ng_v3_profile_progress';
+ const lessons=[
+  ['Stance and balance','Choose orthodox or southpaw, find a stable base, soften the knees and stay balanced.'],
+  ['Hands and guard','Keep hands near cheek level, elbows relaxed, chin gently tucked and shoulders comfortable.'],
+  ['Basic movement','Practise small forward, backward and lateral steps. Do not cross your feet; reset your stance.'],
+  ['The jab','Extend the lead hand smoothly, keep the other hand near your cheek, then return to guard.'],
+  ['The cross','Learn a controlled rear-hand straight punch with coordinated hip and torso rotation, then recover.'],
+  ['Hooks and uppercuts','Learn short, controlled arcs with stable wrists and no excessive twisting.'],
+  ['Body mechanics and power','Coordinate legs, hips and torso. Build technique gradually; do not chase power or hit hard objects.'],
+  ['Defence basics','Practise high guard, simple blocks, parries and small slips at a comfortable pace.'],
+  ['Combinations','Join basic punches while maintaining balance, guard and controlled breathing.']
+ ];
+ let data={profile:{},completed:[],trainingDates:[],feedback:[]};
+ try{const saved=JSON.parse(localStorage.getItem(STORE)||'null');if(saved&&typeof saved==='object')data={...data,...saved,profile:{...data.profile,...(saved.profile||{})}};}catch(e){}
+ function persist(){try{localStorage.setItem(STORE,JSON.stringify(data));return true}catch(e){return false}}
+ function safeText(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+ function showPage(id){document.querySelectorAll('.page').forEach(p=>p.classList.toggle('active',p.id===id));document.querySelectorAll('[data-page]').forEach(b=>b.classList.toggle('active',b.dataset.page===id));if(id==='progressPage')renderProgress();if(id==='profilePage')renderProfileExtras();window.scrollTo({top:0,behavior:'smooth'});}
+ document.querySelectorAll('[data-page]').forEach(b=>b.addEventListener('click',()=>showPage(b.dataset.page)));
+ function renderLessons(){const html=lessons.map((l,i)=>{const done=data.completed.includes(i);return `<div class="lesson-card"><div class="lesson-num">${String(i+1).padStart(2,'0')}</div><div style="flex:1;min-width:150px"><h3>${safeText(l[0])} ${done?'✓':''}</h3><p>${safeText(l[1])}</p></div><button class="btn ${done?'secondary':'primary'}" data-lesson="${i}">${done?'Review':'Open'}</button></div>`}).join('');$('lessonList').innerHTML=html;$('progressLessonList').innerHTML=html;document.querySelectorAll('[data-lesson]').forEach(b=>b.addEventListener('click',()=>openLesson(Number(b.dataset.lesson))));}
+ function openLesson(i){const l=lessons[i];const done=data.completed.includes(i);const msg=`LESSON ${i+1}: ${l[0]}\n\n${l[1]}\n\nPractice slowly in a clear space. When you're ready, use Live Coach for the relevant camera drill. Mark the lesson complete only after practising it.`;if(window.confirm(msg+'\n\nPress OK to go to Live Coach, or Cancel to stay in the Library.')){data.currentLesson=i;persist();showPage('liveCoachPage');const focus=$('focus');if(focus){const f=i===0?'stance':i===1?'guard':i===2?'footwork':i===3||i===4?'jab':'shadow';focus.value=f;focus.dispatchEvent(new Event('change'));} }else if(window.confirm('Mark this lesson complete? Only mark it after you have practised it.')){if(!data.completed.includes(i))data.completed.push(i);persist();renderLessons();renderProgress();}}
+ function readProfileForm(){return {name:$('fullName').value.trim(),age:$('age').value,height:Number($('heightCm').value)||'',weight:Number($('weightKg').value)||'',experience:$('experience').value,goal:$('goal').value,diet:$('diet').value,trainingPlace:$('trainingPlace').value,startDate:$('startDate').value,daysPerWeek:$('daysPerWeek').value,foodAvoid:$('foodAvoid').value.trim(),notes:$('profileNotes').value.trim(),photo:data.profile.photo||''}}
+ function loadProfile(){const p=data.profile||{};for(const id of ['fullName','age','heightCm','weightKg','experience','goal','diet','trainingPlace','startDate','daysPerWeek','foodAvoid','profileNotes'])if($(id)&&p[id]!==undefined&&p[id]!==null)$(id).value=p[id];if(!$('startDate').value){const d=new Date();$('startDate').value=`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;}updateAvatar();}
+ function updateAvatar(){const name=data.profile.name||'';const av=$('profileAvatar');if(!av)return;if(data.profile.photo){av.innerHTML=`<img alt="Profile picture" src="${data.profile.photo}">`}else av.textContent=name?name.trim().split(/\s+/).slice(0,2).map(x=>x[0]).join('').toUpperCase():'🥊';$('profileDisplayName').textContent=name||'Your profile';}
+ function saveProfile(){const p=readProfileForm();if(p.age&&(Number(p.age)<5||Number(p.age)>100)){$('profileMessage').textContent='Please enter an age between 5 and 100.';return}if(p.height&&(p.height<50||p.height>250)){$('profileMessage').textContent='Please check the height value.';return}if(p.weight&&(p.weight<10||p.weight>350)){$('profileMessage').textContent='Please check the weight value.';return}p.photo=data.profile.photo||'';data.profile=p;const ok=persist();$('profileMessage').textContent=ok?'Profile saved on this device.':'Could not save. Browser storage may be full.';updateAvatar();renderProfileExtras();renderProgress();}
+ function renderProfileExtras(){const p=data.profile||{};if(p.height&&p.weight&&Number(p.age)>=18){const bmi=Number(p.weight)/(Math.pow(Number(p.height)/100,2));$('bmiResult').innerHTML=`<strong>${bmi.toFixed(1)}</strong> BMI <span class="small">• Adult screening estimate only</span>`}else $('bmiResult').textContent='BMI estimate is shown for adults after height and weight are entered. For users under 18, adult BMI categories are not appropriate.';const meals={vegan:'Try dal with rice, chana masala, rajma, tofu bhurji, vegetable poha, fruit, nuts and soy/fortified alternatives. Check labels for animal ingredients.',vegetarian:'Try dal, rajma, chole, curd, paneer or tofu, roti, rice, vegetables, fruit and nuts. Include varied protein sources.',nonvegetarian:'Try dal and rice, eggs, chicken with roti, fish with rice, curd, vegetables, fruit and legumes. Keep meals varied and balanced.'};$('dietIdeas').textContent=meals[p.diet||'vegetarian']+(p.foodAvoid?' Foods to avoid noted: '+p.foodAvoid+'.':'');renderFeedback();}
+ $('saveProfile').addEventListener('click',saveProfile);
+ $('profilePhoto').addEventListener('change',e=>{const f=e.target.files&&e.target.files[0];if(!f)return;if(!f.type.startsWith('image/'))return; if(f.size>1200000){$('profileMessage').textContent='Choose an image under 1.2 MB so local storage is not overloaded.';e.target.value='';return}const reader=new FileReader();reader.onload=()=>{data.profile.photo=reader.result;updateAvatar();if(!persist())$('profileMessage').textContent='Picture loaded but could not be saved; try a smaller image.'};reader.readAsDataURL(f)});
+ function dateKey(d=new Date()){return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`}
+ function calcStreak(){const set=new Set(data.trainingDates||[]);let d=new Date();let key=dateKey(d);if(!set.has(key)){d.setDate(d.getDate()-1);key=dateKey(d);if(!set.has(key))return 0}let n=0;while(set.has(key)&&n<500){n++;d.setDate(d.getDate()-1);key=dateKey(d)}return n}
+ function renderProgress(){const start=data.profile.startDate;let days=0;if(start){const a=new Date(start+'T00:00:00');const b=new Date();b.setHours(0,0,0,0);if(!isNaN(a))days=Math.max(0,Math.floor((b-a)/86400000)+1)}$('progTotalDays').textContent=days;$('progStreak').textContent=calcStreak()+' days';$('progTrainingDays').textContent=(data.trainingDates||[]).length;$('progLessons').textContent=data.completed.length;const today=new Date();const dow=today.getDay();const mondayOffset=(dow+6)%7;const monday=new Date(today);monday.setDate(today.getDate()-mondayOffset);$('weekCalendar').innerHTML=Array.from({length:7},(_,i)=>{const d=new Date(monday);d.setDate(monday.getDate()+i);const k=dateKey(d);const label=['Mon','Tue','Wed','Thu','Fri','Sat','Sun'][i];return `<span class="day-chip ${(data.trainingDates||[]).includes(k)?'done':''}">${label} ${d.getDate()} ${(data.trainingDates||[]).includes(k)?'🥊':''}</span>`}).join('');renderLessons();}
+ $('markTraining').addEventListener('click',()=>{const k=dateKey();if(!data.trainingDates.includes(k)){data.trainingDates.push(k);data.trainingDates.sort();persist();$('progressMessage').textContent='Training day saved. Nice work. Remember to rest and recover, too.'}else $('progressMessage').textContent='Today is already marked as trained.';renderProgress();});
+ $('clearTraining').addEventListener('click',()=>{if(confirm('Clear all saved training dates? This cannot be undone.')){data.trainingDates=[];persist();renderProgress();$('progressMessage').textContent='Training history cleared.'}});
+ $('buildWorkout').addEventListener('click',()=>{const goal=$('workoutGoal').value,place=$('workoutPlace').value,days=Number($('workoutDays').value),mins=Number($('workoutMinutes').value),limit=$('limitations').value.trim();let moves=place==='gym'?['Warm-up: easy skipping or brisk walking','Boxing technique with a coach or light shadowboxing','Controlled bag work only if you know safe technique','Basic strength and mobility','Cool down and breathe']:place==='homekit'?['Warm-up and joint mobility','Shadowboxing with controlled technique','Squats and incline or regular push-ups as appropriate','Core stability and footwork','Cool down and breathe']:['Warm-up and joint mobility','Easy shadowboxing and stance resets','Bodyweight squats and suitable push-up variation','Low-impact footwork and core stability','Cool down and breathe'];if(goal==='Amateur boxing preparation')moves.splice(2,0,'Prioritise coached technical sessions; do not use this plan as competition clearance');const blocks=moves.map((m,i)=>`<li><strong>${safeText(m)}</strong> <span class="small">${Math.max(2,Math.floor(mins/moves.length))} min</span></li>`).join('');$('workoutOutput').classList.remove('hidden');$('workoutOutput').innerHTML=`<h3>Your ${mins}-minute starter session</h3><p class="small">Goal: ${safeText(goal)} • ${safeText(place)} • ${days} days/week</p><ol>${blocks}</ol>${limit?`<p class="notice">You noted: ${safeText(limit)}. Avoid movements that aggravate symptoms and get professional advice when needed.</p>`:''}<p class="small">Start at an easy pace, rest as needed, and stop if you feel pain, dizziness or unusual shortness of breath. For amateur boxing, train with a qualified coach.</p><button class="btn secondary" id="workoutDone">Mark session complete</button>`;$('workoutDone').addEventListener('click',()=>{const k=dateKey();if(!data.trainingDates.includes(k))data.trainingDates.push(k);persist();renderProgress();$('workoutOutput').insertAdjacentHTML('beforeend','<p class="success-note">Session marked complete for today.</p>')})});
+ // Lightweight client-side profanity filter. It blocks common English profanity, but no filter catches every spelling or language.
+ const blockedWords=['fuck','fucking','motherfucker','shit','bullshit','bitch','bastard','asshole','dickhead','cunt','nigger','faggot'];
+ function hasInappropriateWords(text){const normal=String(text).toLowerCase().normalize('NFKD').replace(/[0-9@!$*._-]/g,'');return blockedWords.some(w=>new RegExp('(^|[^a-z])'+w.split('').map(c=>c.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')).join('[^a-z]*')+'([^a-z]|$)','i').test(normal)||normal.includes(w))}
+ $('submitFeedback').addEventListener('click',()=>{const text=$('feedbackText').value.trim();if(!text){$('feedbackMessage').className='error-note';$('feedbackMessage').textContent='Write a suggestion before submitting.';return}if(hasInappropriateWords(text)){$('feedbackMessage').className='error-note';$('feedbackMessage').textContent='Please remove inappropriate language before submitting. Your suggestion was not saved.';return}data.feedback.push({type:$('feedbackType').value,text,when:new Date().toISOString()});if(data.feedback.length>20)data.feedback=data.feedback.slice(-20);persist();$('feedbackText').value='';$('feedbackMessage').className='success-note';$('feedbackMessage').textContent='Thanks. Your suggestion is saved locally on this device.';renderFeedback()});
+ function renderFeedback(){const box=$('feedbackHistory');if(!box)return;if(!data.feedback.length){box.innerHTML='';return}box.innerHTML='<h3>Saved on this device</h3>'+data.feedback.slice().reverse().map(f=>`<div class="coachbox"><span class="pill-tag">${safeText(f.type)}</span><p>${safeText(f.text)}</p><span class="small">${safeText(new Date(f.when).toLocaleDateString())}</span></div>`).join('')}
+ loadProfile();renderLessons();renderProgress();
+ // Main menu is the landing screen after the approved intro; camera remains off until user starts it.
+})();
+
 
 // Show the animated brand intro, then reveal the existing app.
 (function(){

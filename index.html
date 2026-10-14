@@ -19,11 +19,11 @@
 .welcome-splash.dismissed{opacity:0;visibility:hidden;pointer-events:none}
 .splash-content{width:min(92vw,660px);display:flex;flex-direction:column;align-items:center;gap:0;transform:translateY(-2vh);padding:0 10px}
 .splash-welcome-wrap{position:relative;display:grid;place-items:center;margin-bottom:clamp(34px,7vh,62px);opacity:0;transform:translateY(10px);animation:welcomeReveal .65s ease-out .15s forwards}
-.splash-welcome{font-family:Arial,Helvetica,sans-serif;font-weight:850;font-size:clamp(29px,7.6vw,55px);letter-spacing:-.045em;line-height:1.05;white-space:nowrap;color:#f8f8f8;-webkit-text-stroke:.65px #000;text-shadow:.6px 0 #000,-.6px 0 #000,0 .6px #000,0 -.6px #000}
-.splash-strike{position:absolute;left:50%;top:50%;height:3px;width:0;transform:translate(-50%,-50%);background:#e53935;box-shadow:0 0 13px #e5393555;z-index:2;animation:strikeAcross .72s cubic-bezier(.2,.75,.25,1) 1.05s forwards}
-.splash-wordmark{display:flex;align-items:baseline;justify-content:center;white-space:nowrap;font-family:Arial,Helvetica,sans-serif;font-weight:950;font-size:clamp(54px,13vw,108px);line-height:1;letter-spacing:-.065em;-webkit-text-stroke:.7px #000;text-shadow:.7px 0 #000,-.7px 0 #000,0 .7px #000,0 -.7px #000}
+.splash-welcome{font-family:Impact,"Arial Black",system-ui,sans-serif;font-weight:950;font-size:clamp(29px,7.6vw,55px);letter-spacing:-.045em;line-height:1.08;white-space:nowrap;color:#f8f8f8;-webkit-text-stroke:.85px #e53935;text-shadow:.65px 0 #e53935,-.65px 0 #e53935,0 .65px #e53935,0 -.65px #e53935}
+.splash-strike{position:absolute;left:50%;top:auto;bottom:-.22em;height:3px;width:0;transform:translateX(-50%);background:#e53935;box-shadow:0 0 13px #e5393555;z-index:2;animation:strikeAcross .72s cubic-bezier(.2,.75,.25,1) 1.05s forwards}
+.splash-wordmark{display:flex;align-items:baseline;justify-content:center;white-space:nowrap;font-family:Impact,"Arial Black",system-ui,sans-serif;font-weight:950;font-size:clamp(54px,13vw,108px);line-height:1;letter-spacing:-.065em;-webkit-text-stroke:.85px #e53935;text-shadow:.65px 0 #e53935,-.65px 0 #e53935,0 .65px #e53935,0 -.65px #e53935}
 .splash-box{opacity:0;transform:translateY(12px);animation:wordReveal .55s ease-out 1.85s forwards}
-.splash-one{display:inline-block;color:#f2bd48;-webkit-text-stroke:.8px #000;text-shadow:0 0 22px #f2bd4833,.7px 0 #000,-.7px 0 #000,0 .7px #000,0 -.7px #000;opacity:0;transform:translateY(-90px) rotate(-9deg);animation:oneDrop .75s cubic-bezier(.18,.8,.25,1.18) 2.15s forwards,oneTurnsRed .35s ease-in 5.05s forwards;letter-spacing:-.04em;margin-left:.025em}
+.splash-one{display:inline-block;color:#f2bd48;-webkit-text-stroke:.85px #e53935;text-shadow:0 0 22px #f2bd4833,.65px 0 #e53935,-.65px 0 #e53935,0 .65px #e53935,0 -.65px #e53935;opacity:0;transform:translateY(-90px) rotate(-9deg);animation:oneDrop .75s cubic-bezier(.18,.8,.25,1.18) 2.15s forwards,oneTurnsRed .35s ease-in 5.05s forwards,oneOutlineWhite .35s ease-in 5.05s forwards;letter-spacing:-.04em;margin-left:.025em}
 .splash-ing{opacity:0;filter:blur(7px);transform:translateX(10px);animation:ingReveal .65s ease-out 2.75s forwards;letter-spacing:-.065em}
 .splash-credit{display:flex;align-items:center;justify-content:center;gap:.35em;margin-top:clamp(22px,4vh,34px);opacity:0;transform:translateY(8px);animation:creditReveal .7s ease-out 3.25s forwards;font-family:Arial,Helvetica,sans-serif;font-size:clamp(12px,3.4vw,17px);font-weight:500;letter-spacing:.12em;text-transform:none;color:#8b8b8b;-webkit-text-stroke:.45px #000;text-shadow:.5px 0 #000,-.5px 0 #000,0 .5px #000,0 -.5px #000}
 .splash-by,.splash-name{font:inherit;letter-spacing:inherit;text-transform:none;color:inherit;-webkit-text-stroke:inherit;text-shadow:inherit}
@@ -34,6 +34,7 @@
 @keyframes wordReveal{to{opacity:1;transform:translateY(0)}}
 @keyframes oneDrop{0%{opacity:0;transform:translateY(-90px) rotate(-9deg)}75%{opacity:1;transform:translateY(7px) rotate(2deg)}100%{opacity:1;transform:translateY(0) rotate(0)}}
 @keyframes oneTurnsRed{to{color:#e53935}}
+@keyframes oneOutlineWhite{to{-webkit-text-stroke-color:#fff;text-shadow:.65px 0 #fff,-.65px 0 #fff,0 .65px #fff,0 -.65px #fff}}
 @keyframes ingReveal{to{opacity:1;filter:blur(0);transform:translateX(0)}}
 @keyframes creditReveal{to{opacity:1;transform:translateY(0)}}
 @keyframes appReveal{to{opacity:1}}

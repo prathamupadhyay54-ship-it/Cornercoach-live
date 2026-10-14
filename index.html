@@ -1,1 +1,100 @@
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#101112">
+<title>CornerCoach Live — Boxing Form Coach</title>
+<style>
+:root{color-scheme:dark;--bg:#101112;--panel:#1a1c1e;--panel2:#232629;--line:#35393c;--text:#f5f5f3;--muted:#a7aaad;--red:#ff4d4d;--green:#8fe3a8;--amber:#f3bd61}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:15px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}.app{max-width:980px;margin:auto;padding:20px 15px 36px}.top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:24px}.brand{font-weight:900;font-size:18px}.brand span{color:var(--red)}.pill{font-size:12px;border:1px solid var(--line);border-radius:50px;padding:6px 10px;color:var(--muted)}h1{font-size:clamp(30px,6vw,46px);line-height:1.04;letter-spacing:-1px;margin:0 0 12px}.muted{color:var(--muted)}.intro{max-width:700px;margin:0 0 20px;color:var(--muted)}.grid{display:grid;grid-template-columns:1.1fr .9fr;gap:15px}.panel{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:16px;min-width:0;margin-bottom:15px}.panel h2{font-size:18px;margin:0 0 4px}.sub{color:var(--muted);font-size:13px;margin:0 0 14px}.camera{position:relative;background:#050505;border-radius:13px;overflow:hidden;aspect-ratio:3/4;max-height:590px;display:flex;align-items:center;justify-content:center}.camera video{width:100%;height:100%;position:absolute;inset:0;object-fit:cover;transform:scaleX(-1)}canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}.camplaceholder{text-align:center;padding:22px;color:var(--muted)}.camplaceholder .emoji{font-size:45px}.livebadge{position:absolute;z-index:3;top:12px;left:12px;border-radius:50px;padding:5px 9px;background:#481818;color:#ffaaaa;font-weight:800;font-size:12px;display:none}.livebadge.on{display:block}.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.btn{border:0;border-radius:11px;padding:12px 14px;font-weight:800;cursor:pointer}.primary{background:var(--red);color:#190a0a}.secondary{background:var(--panel2);border:1px solid var(--line);color:var(--text)}.btn:disabled{opacity:.45;cursor:not-allowed}.wide{width:100%;margin-top:10px}.stat{display:flex;justify-content:space-between;gap:12px;padding:11px 0;border-bottom:1px solid var(--line)}.stat:last-child{border:0}.stat strong{font-size:14px}.status{font-size:12px;color:var(--muted)}.coachbox{background:#131516;border:1px solid var(--line);border-radius:13px;padding:14px;margin-top:12px}.coachbox h3{margin:0 0 7px;font-size:15px}.coachmsg{font-size:14px}.coachmsg ul{margin:7px 0;padding-left:19px}.coachmsg li{margin:6px 0}.meter{height:7px;background:#34383b;border-radius:10px;overflow:hidden;margin:8px 0}.meter div{height:100%;width:0;background:var(--green);transition:width .2s}.yellow{color:var(--amber)}.green{color:var(--green)}.red{color:#ff8888}.small{font-size:12px;color:var(--muted)}.settings label{display:block;margin:12px 0 5px;color:var(--muted);font-size:13px}.settings select{width:100%;padding:11px;border-radius:10px;border:1px solid var(--line);background:#111314;color:var(--text)}.tips{padding-left:19px;color:#d5d7d8}.tips li{margin:8px 0}.disclaimer{font-size:12px;color:var(--muted);margin-top:13px}.state{display:inline-flex;align-items:center;gap:7px}.dot{width:8px;height:8px;border-radius:50%;background:#777}.dot.live{background:#ff5555;box-shadow:0 0 0 4px #ff555522}@media(max-width:760px){.grid{grid-template-columns:1fr}.app{padding:15px 12px}.camera{aspect-ratio:4/5;max-height:540px}.panel{padding:14px}}
+</style></head>
+<body><main class="app">
+<header class="top"><div class="brand">🥊 CORNER<span>COACH LIVE</span></div><div class="pill">REAL-TIME CAMERA MODE</div></header>
+<h1>Fix your form<br>while you move.</h1>
+<p class="intro">Use your phone camera for live posture feedback. This prototype tracks visible body landmarks in your browser and gives basic stance and guard cues. It is not a professional boxing coach and cannot reliably judge punch technique or safety.</p>
+<div class="grid">
+<section>
+<div class="panel">
+<h2>📷 Live camera</h2><p class="sub">Prop your phone up so your whole body is visible, including feet and hands.</p>
+<div class="camera" id="cameraBox"><div class="camplaceholder" id="placeholder"><div class="emoji">🥊</div><b>Camera is off</b><p>Start the camera to begin live feedback.</p></div><video id="cam" autoplay muted playsinline></video><canvas id="overlay"></canvas><div class="livebadge" id="liveBadge">● LIVE</div></div>
+<div class="row" style="margin-top:12px"><button class="btn primary" id="start">Start camera</button><button class="btn secondary" id="stop" disabled>Stop</button></div>
+<div class="status" id="cameraStatus" style="margin-top:10px">Camera permission has not been requested.</div>
+<div class="disclaimer">Camera processing runs in this browser session. The app does not record or upload footage. Pose detection requires an internet connection the first time it loads.</div>
+</div>
+<div class="panel settings"><h2>⚙️ Coaching setup</h2>
+<label for="view">Camera angle</label><select id="view"><option value="front">Front view</option><option value="side">Side view</option></select>
+<label for="stance">Your stance</label><select id="stance"><option value="orthodox">Orthodox (left foot/hand forward)</option><option value="southpaw">Southpaw (right foot/hand forward)</option><option value="unknown">Not sure yet</option></select>
+<label for="focus">Current drill</label><select id="focus"><option value="stance">Stance and balance</option><option value="guard">Guard and chin</option><option value="jab">Jab practice</option><option value="shadow">Light shadowboxing</option></select>
+</div>
+</section>
+<section>
+<div class="panel"><h2>🧠 Live coach feedback</h2><p class="sub">Updates while the camera is running.</p>
+<div class="stat"><span>Pose detection</span><strong id="poseState" class="yellow">Waiting for camera</strong></div>
+<div class="stat"><span>Body visibility</span><strong id="visibility">—</strong></div>
+<div class="stat"><span>Balance cue</span><strong id="balance">—</strong></div>
+<div class="stat"><span>Guard cue</span><strong id="guard">—</strong></div>
+<div class="stat"><span>Session time</span><strong id="elapsed">00:00</strong></div>
+<div class="coachbox" aria-live="polite"><h3 id="coachTitle">Your coach is waiting</h3><div class="coachmsg" id="coachText">Start the camera and stand far enough away for your full body to fit in frame. Begin slowly.</div></div>
+<button class="btn secondary wide" id="recalibrate" disabled>Recheck posture</button>
+</div>
+<div class="panel"><h2>🎯 How to get useful feedback</h2><ul class="tips"><li>Place the phone securely at about waist-to-chest height, not in your hand.</li><li>Use bright, even lighting and keep your whole body in frame.</li><li>Start with a relaxed stance and guard. Do not throw hard punches near your phone.</li><li>Move slowly at first. The detector may lose hands or ankles when they move quickly or leave the frame.</li></ul>
+<div class="coachbox"><h3>Safety first</h3><div class="coachmsg">Train in clear space. Do not use this prototype for sparring, impact timing, injury assessment, or as proof that your technique is correct. Stop if you feel pain, dizzy, or unwell.</div></div>
+</div>
+</section></div>
+<footer class="disclaimer">CornerCoach Live prototype · Uses MediaPipe Pose Landmarker through Google's hosted JavaScript package and model. If the camera or model cannot load in your browser, use Chrome and allow camera access.</footer>
+</main>
+<script type="module">
+const $=id=>document.getElementById(id);
+const video=$('cam'),canvas=$('overlay'),ctx=canvas.getContext('2d');
+let stream=null,landmarker=null,raf=0,lastDetect=0,startTime=0,clock=null,latest=null,initPromise=null;
+const setStatus=(text)=>$('cameraStatus').textContent=text;
+function resizeCanvas(){const r=video.getBoundingClientRect(),dpr=window.devicePixelRatio||1;canvas.width=Math.max(1,Math.round(r.width*dpr));canvas.height=Math.max(1,Math.round(r.height*dpr));ctx.setTransform(canvas.width,0,0,canvas.height,0,0);}
+function fmt(s){return String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0')}
+async function loadPose(){
+ if(landmarker)return landmarker;if(initPromise)return initPromise;
+ initPromise=(async()=>{const vision=await import('https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.22');const files=await vision.FilesetResolver.forVisionTasks('https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.22/wasm');landmarker=await vision.PoseLandmarker.createFromOptions(files,{baseOptions:{modelAssetPath:'https://storage.googleapis.com/mediapipe-models/pose_landmarker/pose_landmarker_lite/float16/1/pose_landmarker_lite.task',delegate:'GPU'},runningMode:'VIDEO',numPoses:1});return landmarker;})();
+ try{return await initPromise}catch(e){initPromise=null;throw e}
+}
+function point(p){return p&&p.visibility>.35&&Number.isFinite(p.x)&&Number.isFinite(p.y)}
+function drawPose(lm){
+ resizeCanvas();ctx.clearRect(0,0,1,1);
+ // mirrored preview: invert x for overlay alignment
+ const connections=[[11,12],[11,13],[13,15],[12,14],[14,16],[11,23],[12,24],[23,24],[23,25],[25,27],[24,26],[26,28],[15,19],[16,20]];
+ ctx.lineWidth=.006;ctx.strokeStyle='#8fe3a8';ctx.fillStyle='#ff4d4d';
+ for(const [a,b] of connections){if(point(lm[a])&&point(lm[b])){ctx.beginPath();ctx.moveTo(1-lm[a].x,lm[a].y);ctx.lineTo(1-lm[b].x,lm[b].y);ctx.stroke()}}
+ for(const i of [11,12,13,14,15,16,23,24,25,26,27,28])if(point(lm[i])){ctx.beginPath();ctx.arc(1-lm[i].x,lm[i].y,.009,0,Math.PI*2);ctx.fill()}
+}
+function assess(lm){
+ const ids=[11,12,13,14,15,16,23,24,25,26,27,28],visible=ids.filter(i=>point(lm[i])).length;
+ $('visibility').textContent=visible>=10?'Good':visible>=7?'Partial':'Poor';
+ $('visibility').className=visible>=10?'green':visible>=7?'yellow':'red';
+ if(visible<7){$('balance').textContent='Move into frame';$('guard').textContent='Hands not clear';$('coachTitle').textContent='I can’t see enough yet';$('coachText').textContent='Step back, improve lighting, and make sure your shoulders, hands, hips, knees, and feet are visible.';return}
+ const midShoulder=(lm[11].x+lm[12].x)/2,midHip=(lm[23].x+lm[24].x)/2;
+ const shoulderTilt=Math.abs(lm[11].y-lm[12].y),hipTilt=Math.abs(lm[23].y-lm[24].y);
+ const wristY=(lm[15].y+lm[16].y)/2,shoulderY=(lm[11].y+lm[12].y)/2;
+ const wrists=[lm[15],lm[16]],shoulders=[lm[11],lm[12]];
+ const handsVisible=wrists.every(point),handsHigh=handsVisible&&wrists.every((p,i)=>p.y<shoulders[i].y+.10);
+ const hipsVisible=point(lm[23])&&point(lm[24]),feetVisible=[25,26,27,28].filter(i=>point(lm[i])).length>=3;
+ $('balance').textContent=feetVisible?(shoulderTilt>.09||hipTilt>.10?'Check level shoulders':'Feet visible'):'Feet out of frame';
+ $('balance').className=feetVisible&&shoulderTilt<.09?'green':'yellow';
+ $('guard').textContent=!handsVisible?'Hands unclear':handsHigh?'Hands near guard':'Bring hands up';
+ $('guard').className=handsHigh?'green':'yellow';
+ const focus=$('focus').value;
+ let title='Good: keep it relaxed',message='Stay balanced, breathe, and return to guard after every punch.';
+ if(!feetVisible){title='Show your feet';message='Step back until your feet and ankles are visible. I cannot assess your base without them.'}
+ else if(!handsVisible){title='Hands not tracked';message='Slow down and keep both hands visible. Fast punches can blur or disappear from pose tracking.'}
+ else if(!handsHigh){title='Guard check';message='For a basic guard drill, bring your hands back toward cheek level and keep your chin gently tucked. This estimate only uses wrist height.'}
+ else if(shoulderTilt>.09){title='Check your posture';message='Your shoulders look uneven in this frame. Relax and reset your stance; a camera angle can affect this estimate.'}
+ else if(focus==='jab'){title='Jab drill';message='Extend the lead hand smoothly, keep the other hand near your cheek, then return to guard. This tracker does not verify punch mechanics.'}
+ else if(focus==='shadow'){title='Easy shadowboxing';message='Keep the pace light. Move, punch with control, and reset your stance. Avoid speed until the basics feel steady.'}
+ else if(focus==='guard'){title='Guard drill';message='Keep hands near cheek level, elbows relaxed, and chin gently tucked. Don’t tense your shoulders.'}
+ else {title='Stance check';message='Keep knees soft, feet comfortably apart, and weight balanced. Reset rather than forcing an uncomfortable stance.'}
+ $('coachTitle').textContent=title;$('coachText').textContent=message;
+}
+function loop(now){if(!stream)return;raf=requestAnimationFrame(loop);if(video.readyState<2||now-lastDetect<100)return;lastDetect=now;try{const result=landmarker.detectForVideo(video,now);if(result.landmarks&&result.landmarks[0]){latest=result.landmarks[0];drawPose(latest);assess(latest);$('poseState').textContent='Tracking';$('poseState').className='green'}else{ctx.clearRect(0,0,canvas.width,canvas.height);$('poseState').textContent='No pose';$('poseState').className='yellow';$('coachTitle').textContent='Find the frame';$('coachText').textContent='Step back, face the camera, and make sure your full body is visible.'}}catch(e){console.warn(e)}}
+$('start').onclick=async()=>{
+ try{$('start').disabled=true;setStatus('Requesting camera permission…');stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:'user',width:{ideal:640},height:{ideal:800}},audio:false});video.srcObject=stream;await video.play();$('placeholder').style.display='none';$('liveBadge').classList.add('on');$('stop').disabled=false;$('recalibrate').disabled=false;setStatus('Camera on. Loading pose detection model…');$('poseState').textContent='Loading model';await loadPose();setStatus('Live feedback is running. Keep your whole body in view.');startTime=Date.now();clock=setInterval(()=>$('elapsed').textContent=fmt(Math.floor((Date.now()-startTime)/1000)),500);raf=requestAnimationFrame(loop);
+ }catch(e){console.error(e);setStatus(e.name==='NotAllowedError'?'Camera permission denied. Allow camera access in browser settings, then try again.':'Could not start camera/model. Try Chrome, check camera permission, and ensure internet access.');$('poseState').textContent='Unavailable';$('poseState').className='red';if(stream){stream.getTracks().forEach(t=>t.stop());stream=null} $('start').disabled=false}
+};
+function stop(){if(stream){stream.getTracks().forEach(t=>t.stop());stream=null}cancelAnimationFrame(raf);clearInterval(clock);clock=null;video.srcObject=null;ctx.clearRect(0,0,canvas.width,canvas.height);$('placeholder').style.display='block';$('liveBadge').classList.remove('on');$('start').disabled=false;$('stop').disabled=true;$('recalibrate').disabled=true;$('poseState').textContent='Camera off';$('poseState').className='yellow';setStatus('Camera stopped.');}
+$('stop').onclick=stop;$('recalibrate').onclick=()=>{if(latest)assess(latest);else $('coachText').textContent='Wait until your body is detected.'};window.addEventListener('resize',()=>{if(stream)resizeCanvas()});window.addEventListener('pagehide',stop);
+</script></body></html>

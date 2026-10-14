@@ -51,7 +51,7 @@ function resizeCanvas(){const r=video.getBoundingClientRect(),dpr=window.deviceP
 function fmt(s){return String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0')}
 async function loadPose(){
  if(landmarker)return landmarker;if(initPromise)return initPromise;
- initPromise=(async()=>{const vision=await import('https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.22/+esm');const files=await vision.FilesetResolver.forVisionTasks('https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.22/wasm');const opts={baseOptions:{modelAssetPath:'https://storage.googleapis.com/mediapipe-models/pose_landmarker/pose_landmarker_lite/float16/1/pose_landmarker_lite.task'},runningMode:'VIDEO',numPoses:1};try{landmarker=await vision.PoseLandmarker.createFromOptions(files,{...opts,baseOptions:{...opts.baseOptions,delegate:'GPU'}})}catch(gpuError){console.warn('GPU model init failed; retrying on CPU',gpuError);landmarker=await vision.PoseLandmarker.createFromOptions(files,{...opts,baseOptions:{...opts.baseOptions,delegate:'CPU'}})}return landmarker;})();
+ initPromise=(async()=>{const vision=await import('https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.22/vision_bundle.mjs');const files=await vision.FilesetResolver.forVisionTasks('https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.22/wasm');const opts={baseOptions:{modelAssetPath:'https://storage.googleapis.com/mediapipe-models/pose_landmarker/pose_landmarker_lite/float16/1/pose_landmarker_lite.task'},runningMode:'VIDEO',numPoses:1};try{landmarker=await vision.PoseLandmarker.createFromOptions(files,{...opts,baseOptions:{...opts.baseOptions,delegate:'GPU'}})}catch(gpuError){console.warn('GPU model init failed; retrying on CPU',gpuError);landmarker=await vision.PoseLandmarker.createFromOptions(files,{...opts,baseOptions:{...opts.baseOptions,delegate:'CPU'}})}return landmarker;})();
  try{return await initPromise}catch(e){initPromise=null;throw e}
 }
 function point(p){return !!p&&Number.isFinite(p.x)&&Number.isFinite(p.y)&&(p.visibility==null||p.visibility>.35)}
@@ -120,7 +120,7 @@ $('start').onclick=async()=>{
      $('poseState').textContent='Model failed';
      $('poseState').className='red';
      $('coachTitle').textContent='Camera works; model did not load';
-     $('coachText').textContent='The camera is being kept on. Pose feedback needs the model download to succeed. Try stable internet or Chrome, then restart the camera.';
+     $('coachText').textContent='Camera is working, but the pose model could not initialise. Check internet access and reload. Technical detail: '+((modelError&&modelError.message)||String(modelError));
    }
  } catch(e) {
    console.error(e);

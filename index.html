@@ -25,9 +25,8 @@
 .splash-box{opacity:0;transform:translateY(12px);animation:wordReveal .55s ease-out 1.85s forwards}
 .splash-one{display:inline-block;color:#f2bd48;-webkit-text-stroke:.8px #000;text-shadow:0 0 22px #f2bd4833,.7px 0 #000,-.7px 0 #000,0 .7px #000,0 -.7px #000;opacity:0;transform:translateY(-90px) rotate(-9deg);animation:oneDrop .75s cubic-bezier(.18,.8,.25,1.18) 2.15s forwards,oneTurnsRed .35s ease-in 5.05s forwards;letter-spacing:-.04em;margin-left:.025em}
 .splash-ing{opacity:0;filter:blur(7px);transform:translateX(10px);animation:ingReveal .65s ease-out 2.75s forwards;letter-spacing:-.065em}
-.splash-credit{display:flex;align-items:center;justify-content:center;gap:clamp(10px,3vw,20px);margin-top:clamp(22px,4vh,34px);opacity:0;transform:translateY(8px);animation:creditReveal .7s ease-out 3.25s forwards}
-.splash-by{font-family:Arial,Helvetica,sans-serif;font-size:clamp(12px,3vw,16px);font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#f8f8f8;-webkit-text-stroke:.45px #000;text-shadow:.5px 0 #000,-.5px 0 #000,0 .5px #000,0 -.5px #000}
-.splash-name{font-family:Arial,Helvetica,sans-serif;font-size:clamp(12px,3.4vw,17px);font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:#8b8b8b;-webkit-text-stroke:.45px #000;text-shadow:.5px 0 #000,-.5px 0 #000,0 .5px #000,0 -.5px #000}
+.splash-credit{display:flex;align-items:center;justify-content:center;gap:.35em;margin-top:clamp(22px,4vh,34px);opacity:0;transform:translateY(8px);animation:creditReveal .7s ease-out 3.25s forwards;font-family:Arial,Helvetica,sans-serif;font-size:clamp(12px,3.4vw,17px);font-weight:500;letter-spacing:.12em;text-transform:none;color:#8b8b8b;-webkit-text-stroke:.45px #000;text-shadow:.5px 0 #000,-.5px 0 #000,0 .5px #000,0 -.5px #000}
+.splash-by,.splash-name{font:inherit;letter-spacing:inherit;text-transform:none;color:inherit;-webkit-text-stroke:inherit;text-shadow:inherit}
 .skip-intro{position:absolute;right:18px;bottom:20px;background:transparent;color:#777;border:1px solid #303030;border-radius:30px;padding:8px 12px;font:inherit;font-size:12px;cursor:pointer;opacity:0;animation:creditReveal .3s ease-out 1s forwards}
 .app{opacity:0;animation:appReveal .55s ease-out 5.65s forwards}.app.app-ready{opacity:1;animation:none}
 @keyframes welcomeReveal{to{opacity:1;transform:translateY(0)}}
@@ -48,7 +47,7 @@
       <div class="splash-strike" aria-hidden="true"></div>
     </div>
     <div class="splash-wordmark" aria-label="BOX1NG"><span class="splash-box">BOX</span><span class="splash-one">1</span><span class="splash-ing">NG</span></div>
-    <div class="splash-credit"><span class="splash-by">BY</span><span class="splash-name">PRATHAM UPADHYAY</span></div>
+    <div class="splash-credit"><span class="splash-by">By:</span><span class="splash-name">Pratham Upadhyay</span></div>
   </div>
   <button type="button" class="skip-intro" id="skipIntro">Skip intro</button>
 </div>

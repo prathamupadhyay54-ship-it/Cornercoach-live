@@ -51,7 +51,7 @@ function resizeCanvas(){const r=video.getBoundingClientRect(),dpr=window.deviceP
 function fmt(s){return String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0')}
 async function loadPose(){
  if(landmarker)return landmarker;if(initPromise)return initPromise;
- initPromise=(async()=>{const vision=await import('https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.22');const files=await vision.FilesetResolver.forVisionTasks('https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.22/wasm');landmarker=await vision.PoseLandmarker.createFromOptions(files,{baseOptions:{modelAssetPath:'https://storage.googleapis.com/mediapipe-models/pose_landmarker/pose_landmarker_lite/float16/1/pose_landmarker_lite.task',delegate:'GPU'},runningMode:'VIDEO',numPoses:1});return landmarker;})();
+ initPromise=(async()=>{const vision=await import('https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.22/+esm');const files=await vision.FilesetResolver.forVisionTasks('https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.22/wasm');const opts={baseOptions:{modelAssetPath:'https://storage.googleapis.com/mediapipe-models/pose_landmarker/pose_landmarker_lite/float16/1/pose_landmarker_lite.task'},runningMode:'VIDEO',numPoses:1};try{landmarker=await vision.PoseLandmarker.createFromOptions(files,{...opts,baseOptions:{...opts.baseOptions,delegate:'GPU'}})}catch(gpuError){console.warn('GPU model init failed; retrying on CPU',gpuError);landmarker=await vision.PoseLandmarker.createFromOptions(files,{...opts,baseOptions:{...opts.baseOptions,delegate:'CPU'}})}return landmarker;})();
  try{return await initPromise}catch(e){initPromise=null;throw e}
 }
 function point(p){return p&&p.visibility>.35&&Number.isFinite(p.x)&&Number.isFinite(p.y)}
@@ -92,8 +92,44 @@ function assess(lm){
 }
 function loop(now){if(!stream)return;raf=requestAnimationFrame(loop);if(video.readyState<2||now-lastDetect<100)return;lastDetect=now;try{const result=landmarker.detectForVideo(video,now);if(result.landmarks&&result.landmarks[0]){latest=result.landmarks[0];drawPose(latest);assess(latest);$('poseState').textContent='Tracking';$('poseState').className='green'}else{ctx.clearRect(0,0,canvas.width,canvas.height);$('poseState').textContent='No pose';$('poseState').className='yellow';$('coachTitle').textContent='Find the frame';$('coachText').textContent='Step back, face the camera, and make sure your full body is visible.'}}catch(e){console.warn(e)}}
 $('start').onclick=async()=>{
- try{$('start').disabled=true;setStatus('Requesting camera permission…');stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:'user',width:{ideal:640},height:{ideal:800}},audio:false});video.srcObject=stream;await video.play();$('placeholder').style.display='none';$('liveBadge').classList.add('on');$('stop').disabled=false;$('recalibrate').disabled=false;setStatus('Camera on. Loading pose detection model…');$('poseState').textContent='Loading model';await loadPose();setStatus('Live feedback is running. Keep your whole body in view.');startTime=Date.now();clock=setInterval(()=>$('elapsed').textContent=fmt(Math.floor((Date.now()-startTime)/1000)),500);raf=requestAnimationFrame(loop);
- }catch(e){console.error(e);setStatus(e.name==='NotAllowedError'?'Camera permission denied. Allow camera access in browser settings, then try again.':'Could not start camera/model. Try Chrome, check camera permission, and ensure internet access.');$('poseState').textContent='Unavailable';$('poseState').className='red';if(stream){stream.getTracks().forEach(t=>t.stop());stream=null} $('start').disabled=false}
+ $('start').disabled=true;
+ try {
+   setStatus('Requesting camera permission…');
+   stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:'user',width:{ideal:640},height:{ideal:800}},audio:false});
+   video.srcObject=stream;
+   await new Promise((resolve,reject)=>{if(video.readyState>=2){resolve();return;}const timer=setTimeout(()=>reject(new Error('Camera video did not become ready.')),10000);video.onloadedmetadata=()=>{clearTimeout(timer);resolve();};video.onerror=()=>{clearTimeout(timer);reject(new Error('The camera video could not be displayed.'));};});
+   await video.play();
+   $('placeholder').style.display='none';
+   $('liveBadge').classList.add('on');
+   $('stop').disabled=false;
+   $('recalibrate').disabled=false;
+   setStatus('Camera is on. Loading pose-detection model…');
+   $('poseState').textContent='Loading model';
+   $('poseState').className='yellow';
+   startTime=Date.now();
+   clock=setInterval(()=>$('elapsed').textContent=fmt(Math.floor((Date.now()-startTime)/1000)),500);
+   try {
+     await loadPose();
+     setStatus('Camera and pose model are ready. Keep your whole body in view.');
+     $('poseState').textContent='Ready';
+     $('poseState').className='green';
+     raf=requestAnimationFrame(loop);
+   } catch(modelError) {
+     console.error('Pose model failed to load:',modelError);
+     setStatus('Camera is on, but the pose model failed to load. Check internet, then tap Stop and Start again. Details: '+(modelError.message||modelError));
+     $('poseState').textContent='Model failed';
+     $('poseState').className='red';
+     $('coachTitle').textContent='Camera works; model did not load';
+     $('coachText').textContent='The camera is being kept on. Pose feedback needs the model download to succeed. Try stable internet or Chrome, then restart the camera.';
+   }
+ } catch(e) {
+   console.error(e);
+   setStatus(e.name==='NotAllowedError'?'Camera permission denied. Allow camera access in browser settings, then try again.':'Camera could not start: '+(e.message||e)+'. Try Chrome and check camera permission.');
+   $('poseState').textContent='Camera unavailable';
+   $('poseState').className='red';
+   if(stream){stream.getTracks().forEach(t=>t.stop());stream=null;}
+   $('start').disabled=false;
+ }
 };
 function stop(){if(stream){stream.getTracks().forEach(t=>t.stop());stream=null}cancelAnimationFrame(raf);clearInterval(clock);clock=null;video.srcObject=null;ctx.clearRect(0,0,canvas.width,canvas.height);$('placeholder').style.display='block';$('liveBadge').classList.remove('on');$('start').disabled=false;$('stop').disabled=true;$('recalibrate').disabled=true;$('poseState').textContent='Camera off';$('poseState').className='yellow';setStatus('Camera stopped.');}
 $('stop').onclick=stop;$('recalibrate').onclick=()=>{if(latest)assess(latest);else $('coachText').textContent='Wait until your body is detected.'};window.addEventListener('resize',()=>{if(stream)resizeCanvas()});window.addEventListener('pagehide',stop);

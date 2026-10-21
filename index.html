@@ -114,6 +114,11 @@ body.inner-page .exit-shortcut{display:flex}
 .top-brand.brand-home:focus-visible,.profile-shortcut:focus-visible,.exit-shortcut:focus-visible{outline:2px solid #ff4d4d;outline-offset:3px}
 @media(prefers-reduced-motion:reduce){.splash-rule::after{animation-duration:.01ms!important;animation-delay:0ms!important;transform:scaleX(1)}}
 
+
+/* BMI calculator and health guide */
+.bmi-gauge-wrap{max-width:520px;margin:0 auto;overflow:hidden}.bmi-gauge-wrap svg{display:block;width:100%;height:auto;max-height:310px}.bmi-result-number{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin:4px 0 10px}.bmi-result-number strong{font-size:clamp(38px,9vw,56px);line-height:1;font-weight:900;letter-spacing:-1px}.bmi-result-number span{font-size:18px;font-weight:800;color:var(--red)}.bmi-exact-box{border:1px solid var(--line);background:var(--panel2);border-radius:13px;padding:13px;margin:12px 0}.bmi-exact-box p{margin:5px 0}.bmi-plan{display:grid;gap:10px}.bmi-step{display:grid;grid-template-columns:36px 1fr;gap:10px;align-items:start;border:1px solid var(--line);border-radius:13px;padding:12px}.bmi-step-num{width:32px;height:32px;border-radius:10px;background:rgba(255,77,77,.14);color:var(--red);font-weight:900;display:grid;place-items:center}.bmi-step h3{font-size:15px;margin:0 0 4px}.bmi-step p{margin:0;color:var(--muted);font-size:14px}.bmi-checklist{display:grid;gap:8px}.bmi-check{display:flex;align-items:flex-start;gap:10px;border:1px solid var(--line);border-radius:11px;padding:11px}.bmi-check input{width:19px;height:19px;accent-color:var(--red);margin-top:2px;flex-shrink:0}.bmi-check span{font-size:14px}.bmi-check.done{border-color:#3c7650;background:rgba(55,150,80,.08)}.bmi-check.done span{color:var(--green)}
+@media(max-width:520px){.bmi-result-number{gap:8px}.bmi-result-number span{font-size:16px}.bmi-step{padding:10px}}
+
 </style></head>
 <body>
 <div id="welcomeSplash" class="welcome-splash" role="status" aria-label="BOX1NG">
@@ -147,9 +152,9 @@ body.inner-page .exit-shortcut{display:flex}
       <span class="home-card-icon" aria-hidden="true">⌗</span>
       <strong>Custom Practice</strong><small>Practise the lessons you've unlocked.</small>
     </button>
-    <button class="menu-card home-card" type="button" aria-disabled="true">
+    <button class="menu-card home-card" data-page="bmiPage" type="button">
       <span class="home-card-icon" aria-hidden="true">▦</span>
-      <strong>BMI Calculator</strong><small>Check your body mass index.</small>
+      <strong>BMI Calculator</strong><small>Calculate BMI and get a practical health plan.</small>
     </button>
     <button class="menu-card home-card" data-page="progressPage">
       <span class="home-card-icon" aria-hidden="true">▥</span>
@@ -162,13 +167,13 @@ body.inner-page .exit-shortcut{display:flex}
   </div>
 </section>
 <section id="libraryPage" class="page">
-<div class="section-head"><h1>Learn Boxing</h1><span class="pill-tag">3.1 • LIBRARY</span></div>
+<div class="section-head"><h1>Learn Boxing</h1></div>
 <p class="intro">Learn one skill at a time. Open a lesson to read the steps, then practise it in Live Coach. Lessons are a starter curriculum; we will add licensed videos and original demonstrations as the library grows.</p>
 <div class="lesson-list" id="lessonList"></div>
 <div class="notice" style="margin-top:14px">Camera checks are estimates, not a certification of boxing technique. Practise slowly in a clear space.</div>
 </section>
 <section id="liveCoachPage" class="page">
-<div class="section-head"><h1>Live Coach</h1><span class="pill-tag">3.2</span></div>
+<div class="section-head"><h1>Live Coach</h1></div>
 <p class="intro">Start the camera and select a drill. Your current prototype's camera and pose-tracking code remains in this page.</p>
 <h1>Fix your form<br>while you move.</h1>
 <p class="intro">Use your phone camera for live posture feedback. This prototype tracks visible body landmarks in your browser and gives basic stance and guard cues. It is not a professional boxing coach and cannot reliably judge punch technique or safety.</p>
@@ -211,7 +216,7 @@ body.inner-page .exit-shortcut{display:flex}
 <footer class="disclaimer">BOX1NG Live Coach prototype · Uses MediaPipe Pose Landmarker through hosted JavaScript and model assets. Camera/model availability depends on browser permissions and network access.</footer>
 </section>
 <section id="workoutsPage" class="page">
-<div class="section-head"><h1>Workouts</h1><span class="pill-tag">3.3</span></div>
+<div class="section-head"><h1>Workouts</h1></div>
 <p class="intro">Create a starter workout based on your goal, available time and equipment. This first version builds a simple routine locally; it does not replace individual coaching.</p>
 <div class="panel">
 <div class="field-grid">
@@ -226,8 +231,55 @@ body.inner-page .exit-shortcut{display:flex}
 </div>
 <div class="panel"><h2>Indian food preferences</h2><p class="sub">Choose a preference in Profile to get general meal ideas alongside your routine.</p><button class="btn secondary" data-page="profilePage">Set up my profile</button></div>
 </section>
+<section id="bmiPage" class="page">
+<div class="section-head"><h1>BMI & Health Guide</h1></div>
+<p class="intro">Calculate your BMI, see where it falls on the meter, understand what the number can mean, and get practical next steps. Your measurements are processed in this browser.</p>
+<div class="panel bmi-form-panel">
+  <h2>Your measurements</h2><p class="sub">Choose the units that are easiest for you.</p>
+  <div class="field-grid">
+    <div class="field"><label for="bmiHeightUnit">Height unit</label><select id="bmiHeightUnit"><option value="cm">Centimetres (cm)</option><option value="m">Metres (m)</option><option value="ft">Feet and inches</option><option value="in">Inches (in)</option></select></div>
+    <div class="field" id="bmiHeightSingle"><label for="bmiHeight">Height</label><input id="bmiHeight" type="number" min="1" step="any" placeholder="e.g. 175"></div>
+    <div class="field hidden" id="bmiHeightFeetField"><label for="bmiHeightFeet">Feet</label><input id="bmiHeightFeet" type="number" min="0" max="8" step="1" placeholder="e.g. 5"></div>
+    <div class="field hidden" id="bmiHeightInchesField"><label for="bmiHeightInches">Extra inches</label><input id="bmiHeightInches" type="number" min="0" max="11.9" step="any" placeholder="e.g. 9"></div>
+    <div class="field"><label for="bmiWeightUnit">Weight unit</label><select id="bmiWeightUnit"><option value="kg">Kilograms (kg)</option><option value="lb">Pounds (lb)</option><option value="st">Stone and pounds (st/lb)</option><option value="g">Grams (g)</option></select></div>
+    <div class="field" id="bmiWeightSingle"><label for="bmiWeight">Weight</label><input id="bmiWeight" type="number" min="0.1" step="any" placeholder="e.g. 65"></div>
+    <div class="field hidden" id="bmiStoneField"><label for="bmiStone">Stone</label><input id="bmiStone" type="number" min="0" step="1" placeholder="e.g. 10"></div>
+    <div class="field hidden" id="bmiPoundsField"><label for="bmiPounds">Extra pounds</label><input id="bmiPounds" type="number" min="0" max="13.9" step="any" placeholder="e.g. 4"></div>
+    <div class="field"><label for="bmiAge">Age (years)</label><input id="bmiAge" type="number" min="2" max="120" step="1" placeholder="Your age"></div>
+  </div>
+  <button class="btn primary" id="calculateBMI" type="button">Calculate my BMI</button>
+  <p id="bmiInputError" class="error-note hidden" role="alert"></p>
+</div>
+<div id="bmiOutput" class="hidden" aria-live="polite">
+  <div class="panel bmi-result-panel">
+    <h2>Your BMI meter</h2>
+    <p class="sub">The needle points to your result on the adult reference scale.</p>
+    <div class="bmi-gauge-wrap">
+      <svg id="bmiGauge" viewBox="0 0 360 230" role="img" aria-label="BMI meter showing underweight, healthy range, overweight, obesity and severe obesity categories">
+        <path d="M 32 175 A 148 148 0 0 1 328 175" fill="none" stroke="#2b2d30" stroke-width="38" stroke-linecap="butt"/>
+        <path d="M 32 175 A 148 148 0 0 1 73.6 70.3" fill="none" stroke="#12a8d6" stroke-width="34"/>
+        <path d="M 73.6 70.3 A 148 148 0 0 1 142.7 32.3" fill="none" stroke="#43b65b" stroke-width="34"/>
+        <path d="M 142.7 32.3 A 148 148 0 0 1 217.3 32.3" fill="none" stroke="#f0e83c" stroke-width="34"/>
+        <path d="M 217.3 32.3 A 148 148 0 0 1 286.4 70.3" fill="none" stroke="#f49a35" stroke-width="34"/>
+        <path d="M 286.4 70.3 A 148 148 0 0 1 328 175" fill="none" stroke="#ef343b" stroke-width="34"/>
+        <g fill="currentColor" font-size="10" text-anchor="middle"><text x="44" y="143">Underweight</text><text x="102" y="58">Healthy</text><text x="180" y="17">Overweight</text><text x="258" y="58">Obesity</text><text x="317" y="143">High</text></g>
+        <g id="bmiNeedle" transform="rotate(-90 180 175)"><path d="M180 175 L174 175 L180 54 L186 175 Z" fill="#f8f8f8" stroke="#111" stroke-width="1"/><circle cx="180" cy="175" r="14" fill="#111" stroke="#f8f8f8" stroke-width="2"/></g>
+        <text x="180" y="215" fill="currentColor" font-size="15" font-weight="700" text-anchor="middle" id="bmiGaugeNumber">BMI --</text>
+      </svg>
+    </div>
+    <div class="bmi-result-number"><strong id="bmiNumber">--</strong><span id="bmiCategory">Your result</span></div>
+    <p id="bmiSummary" class="coachmsg"></p>
+    <div class="bmi-exact-box" id="bmiExact"></div>
+    <p class="small">BMI is a screening measure, not a diagnosis. It does not directly measure body fat, muscle or overall fitness. The coloured adult scale is not appropriate for users under 20.</p>
+  </div>
+  <div class="panel"><h2>What this result may mean</h2><div id="bmiMeaning" class="coachmsg"></div></div>
+  <div class="panel"><h2>Your step-by-step plan</h2><p class="sub">Practical habits, adapted to the result. Start small and repeat them consistently.</p><div id="bmiPlan" class="bmi-plan"></div></div>
+  <div class="panel"><h2>Your daily checklist</h2><p class="sub">Tick habits as you complete them. The checklist is not a medical prescription.</p><div id="bmiChecklist" class="bmi-checklist"></div><p id="bmiChecklistStatus" class="small" aria-live="polite">0 habits checked today.</p><button class="btn secondary" id="resetBmiChecklist" type="button">Reset today's checklist</button></div>
+</div>
+<div class="panel"><h2>Important note</h2><p class="coachmsg">If your weight is changing unexpectedly, you feel persistently unwell, or food and weight cause distress, speak with a qualified healthcare professional. If you are under 20, adult BMI categories should not be used to label your result.</p></div>
+</section>
 <section id="progressPage" class="page">
-<div class="section-head"><h1>My Progress</h1><span class="pill-tag">4.1</span></div>
+<div class="section-head"><h1>My Progress</h1></div>
 <div class="metric-grid">
 <div class="metric"><small>Programme day</small><strong id="progTotalDays">0</strong></div><div class="metric"><small>🥊 Current streak</small><strong id="progStreak">0 days</strong></div><div class="metric"><small>Training days</small><strong id="progTrainingDays">0</strong></div><div class="metric"><small>Lessons completed</small><strong id="progLessons">0</strong></div>
 </div>
@@ -235,7 +287,7 @@ body.inner-page .exit-shortcut{display:flex}
 <div class="panel"><h2>Lesson progress</h2><div id="progressLessonList" class="lesson-list"></div></div>
 </section>
 <section id="profilePage" class="page">
-<div class="section-head"><h1>My Profile</h1><span class="pill-tag">4.0</span></div>
+<div class="section-head"><h1>My Profile</h1></div>
 <div class="panel">
 <div class="profile-head"><div class="avatar" id="profileAvatar">🥊</div><div><h2 id="profileDisplayName">Your profile</h2><p class="sub" style="margin:3px 0 0">Personal training settings</p><label for="avatarStyle" class="small">Custom PFP</label><select id="avatarStyle" aria-label="Choose a built-in avatar"><option value="🥊">🥊 Boxing glove</option><option value="🥷">🥷 Shadow fighter</option><option value="🐯">🐯 Tiger</option><option value="🐺">🐺 Wolf</option><option value="🦅">🦅 Eagle</option><option value="🔥">🔥 Fire</option><option value="⚡">⚡ Lightning</option><option value="👤">👤 Minimal</option></select><label for="profilePhoto" class="small">Upload one (image file, max 1.2 MB)</label><input id="profilePhoto" type="file" accept="image/jpeg,image/png,image/webp,image/gif"><p class="small">Basic file checks are applied. This offline prototype cannot reliably identify inappropriate image content without a moderation service, so review uploads before using them.</p></div></div>
 <div class="field-grid">
@@ -517,6 +569,23 @@ $('stop').onclick=stop;$('recalibrate').onclick=()=>{if(latest)assess(latest);el
  function hasInappropriateWords(text){const normal=String(text).toLowerCase().normalize('NFKD').replace(/[0-9@!$*._-]/g,'');return blockedWords.some(w=>new RegExp('(^|[^a-z])'+w.split('').map(c=>c.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')).join('[^a-z]*')+'([^a-z]|$)','i').test(normal)||normal.includes(w))}
  $('submitFeedback').addEventListener('click',()=>{const text=$('feedbackText').value.trim();if(!text){$('feedbackMessage').className='error-note';$('feedbackMessage').textContent='Write a suggestion before submitting.';return}if(hasInappropriateWords(text)){$('feedbackMessage').className='error-note';$('feedbackMessage').textContent='Please remove inappropriate language before submitting. Your suggestion was not saved.';return}data.feedback.push({type:$('feedbackType').value,text,when:new Date().toISOString()});if(data.feedback.length>20)data.feedback=data.feedback.slice(-20);persist();$('feedbackText').value='';$('feedbackMessage').className='success-note';$('feedbackMessage').textContent='Thanks. Your suggestion is saved locally on this device.';renderFeedback()});
  function renderFeedback(){const box=$('feedbackHistory');if(!box)return;if(!data.feedback.length){box.innerHTML='';return}box.innerHTML='<h3>Saved on this device</h3>'+data.feedback.slice().reverse().map(f=>`<div class="coachbox"><span class="pill-tag">${safeText(f.type)}</span><p>${safeText(f.text)}</p><span class="small">${safeText(new Date(f.when).toLocaleDateString())}</span></div>`).join('')}
+ // BMI calculator: unit conversion, visual meter, category-specific practical guidance.
+ const bmiChecks=[
+  ['meals','Eat regular meals and include a varied source of protein and other nourishing foods.'],
+  ['water','Drink regularly through the day; increase fluids when it is hot or you are active.'],
+  ['sleep','Keep a consistent sleep and wake time; most adults need 7–9 hours.'],
+  ['movement','Choose movement appropriate to your current fitness and build up gradually.'],
+  ['recovery','Allow rest and recovery; stop activity if you feel pain, faint or unusually breathless.'],
+  ['review','Review how your habits are going at the end of the week, not just one day’s number.']
+ ];
+ function toggleBmiHeightUnits(){const ft=$('bmiHeightUnit').value==='ft';$('bmiHeightSingle').classList.toggle('hidden',ft);$('bmiHeightFeetField').classList.toggle('hidden',!ft);$('bmiHeightInchesField').classList.toggle('hidden',!ft);$('bmiHeight').placeholder=$('bmiHeightUnit').value==='cm'?'e.g. 175':$('bmiHeightUnit').value==='m'?'e.g. 1.75':'e.g. 69';}
+ function toggleBmiWeightUnits(){const st=$('bmiWeightUnit').value==='st';$('bmiWeightSingle').classList.toggle('hidden',st);$('bmiStoneField').classList.toggle('hidden',!st);$('bmiPoundsField').classList.toggle('hidden',!st);$('bmiWeight').placeholder=$('bmiWeightUnit').value==='kg'?'e.g. 65':$('bmiWeightUnit').value==='lb'?'e.g. 143':'e.g. 65000';}
+ function getBmiMeasurements(){let h=0,w=0;const hu=$('bmiHeightUnit').value,wu=$('bmiWeightUnit').value;if(hu==='ft'){h=(Number($('bmiHeightFeet').value||0)*12+Number($('bmiHeightInches').value||0))*0.0254}else{const raw=Number($('bmiHeight').value);h=hu==='cm'?raw/100:hu==='m'?raw:raw*0.0254}if(wu==='st'){w=(Number($('bmiStone').value||0)*14+Number($('bmiPounds').value||0))*0.45359237}else{const raw=Number($('bmiWeight').value);w=wu==='kg'?raw:wu==='lb'?raw*0.45359237:raw/1000}return {h,w,age:Number($('bmiAge').value)}}
+ function bmiCategory(b){return b<18.5?'Underweight range':b<25?'Healthy adult range':b<30?'Overweight range':b<35?'Obesity range':'Higher obesity range'}
+ function setBmiNeedle(b){const clamped=Math.max(10,Math.min(40,b));const angle=-180+((clamped-10)/30)*180;$('bmiNeedle').setAttribute('transform',`rotate(${angle+90} 180 175)`);$('bmiGaugeNumber').textContent='BMI '+b.toFixed(1)}
+ function renderBmiPlan(b,age,h,w){const under=b<18.5,healthy=b>=18.5&&b<25,over=b>=25;let steps=[];if(under){steps=[['Build a regular eating routine','Aim for regular meals and snacks rather than skipping meals. Add nourishing foods you enjoy, and increase portions gradually if weight gain is appropriate.'],['Add energy and protein','Use affordable options that fit your diet, such as dal, chole, rajma, milk or curd if tolerated, soy, eggs or nuts. Include carbohydrates, protein and fats across the day.'],['Train gently and recover','Start with comfortable activity and basic strength work only if you feel well. Avoid trying to burn extra calories while trying to gain weight.'],['Protect sleep and hydration','Keep a steady sleep schedule and drink regularly. Neither water nor supplements alone can fix low weight.'],['Check possible causes','If weight is falling without trying, appetite is poor, or you have ongoing symptoms, arrange a medical review rather than relying only on a BMI plan.']]}else if(healthy){steps=[['Maintain balanced meals','Keep regular meals with vegetables or fruit, carbohydrates, protein and healthy fats. There is no need to chase a different weight solely because of a BMI number.'],['Keep moving consistently','Choose boxing practice, walking, mobility or strength work you enjoy, and increase training gradually.'],['Sleep and recover','Aim for a regular sleep routine and enough recovery between harder sessions.'],['Hydrate to thirst and conditions','Drink regularly, with more attention to heat and exercise. Pale-yellow urine can be a rough everyday cue, though it is not perfect.'],['Track habits, not perfection','Review energy, strength, mood and consistency weekly. BMI is only one small part of health.']]}else{steps=[['Make changes gradual','Avoid crash diets or extreme restrictions. Start with regular meals, sensible portions and more minimally processed foods.'],['Build balanced plates','Include vegetables or fruit, protein-rich foods, high-fibre carbohydrates and some healthy fats. Keep favourite foods in a realistic plan.'],['Add sustainable movement','Start with walking or low-impact activity and beginner strength work suited to your current fitness. Increase time gradually.'],['Prioritise sleep and hydration','Keep a regular sleep schedule and drink regularly, especially in hot weather or during exercise. These support health but do not directly treat BMI.'],['Get personalised support if useful','A clinician or registered dietitian can consider blood pressure, medicines, medical history and other factors that BMI cannot show.']]}if(age<20){steps=[['Use an age-appropriate assessment','For people under 20, BMI must be interpreted using age- and sex-specific growth charts. This tool cannot assign a reliable adult category.'],['Build healthy routines','Eat regular varied meals, sleep consistently, stay hydrated and choose enjoyable age-appropriate movement.'],['Talk with a trusted professional','If you are concerned about growth or weight, ask a healthcare professional rather than starting a weight-loss or weight-gain plan on your own.']]}$('bmiPlan').innerHTML=steps.map((x,i)=>`<div class="bmi-step"><div class="bmi-step-num">${i+1}</div><div><h3>${safeText(x[0])}</h3><p>${safeText(x[1])}</p></div></div>`).join('')}
+ function calculateBMI(){const m=getBmiMeasurements(),err=$('bmiInputError');if(!(m.h>0&&m.w>0&&m.age>=2&&m.age<=120&&Number.isFinite(m.h)&&Number.isFinite(m.w))){err.textContent='Enter a valid height, weight and age. Check that all values are greater than zero.';err.classList.remove('hidden');$('bmiOutput').classList.add('hidden');return}err.classList.add('hidden');const b=m.w/(m.h*m.h);$('bmiOutput').classList.remove('hidden');$('bmiNumber').textContent=b.toFixed(1);if(m.age<20){$('bmiCategory').textContent='Needs age-specific interpretation';$('bmiSummary').textContent='Adult BMI categories are not appropriate for users under 20. BMI for children and teens is interpreted using age- and sex-specific growth charts; this calculator will not label your result as underweight or overweight.';$('bmiExact').innerHTML='<p><strong>Your calculated BMI:</strong> '+b.toFixed(1)+'</p><p>Ask a qualified healthcare professional to interpret this result using an appropriate growth chart.</p>';$('bmiMeaning').textContent='A BMI number by itself cannot establish a health problem. Growth pattern, age and other context matter.'}else{const cat=bmiCategory(b);$('bmiCategory').textContent=cat;$('bmiSummary').textContent=b<18.5?'Your BMI is below the usual adult reference range. BMI cannot identify the cause, and a low result does not by itself diagnose malnutrition.':b<25?'Your BMI is within the usual adult reference range. This does not guarantee health or measure muscle and body fat directly.':b<30?'Your BMI is above the usual adult reference range. It is a screening signal, not a diagnosis or a judgement.': 'Your BMI is in a higher adult reference category. Consider a supportive, personalised health review; the number alone cannot determine your health.';const low=18.5*m.h*m.h,high=24.9*m.h*m.h;let exact='';if(b<18.5)exact=`At this height, the weight corresponding to BMI 18.5 is about ${low.toFixed(1)} kg. The difference from your entered weight is ${(low-m.w).toFixed(1)} kg.`;else if(b>=25)exact=`At this height, the weight corresponding to BMI 24.9 is about ${high.toFixed(1)} kg. The difference from your entered weight is ${(m.w-high).toFixed(1)} kg. This is a reference calculation, not a required target.`;else exact=`At this height, the usual adult BMI reference interval corresponds to approximately ${low.toFixed(1)}–${high.toFixed(1)} kg. BMI alone cannot decide your ideal weight.`;$('bmiExact').innerHTML='<p><strong>Exact position:</strong> '+b.toFixed(1)+' BMI</p><p>'+safeText(exact)+'</p>';$('bmiMeaning').textContent=b<18.5?'A lower BMI can be associated with low energy reserves in some people, but it does not explain why the value is low. Food access, natural build, recent weight changes and medical factors all matter.':b<25?'This is the standard adult reference range. Your fitness, strength, nutrition, waist measurement, medical history and how you feel still matter.': 'A higher BMI can be associated with increased risk for some conditions at a population level, but individual risk varies with muscle mass, body composition, medical history and other factors.';setBmiNeedle(b)}renderBmiPlan(b,m.age,m.h,m.w);const list=$('bmiChecklist');list.innerHTML=bmiChecks.map(([id,label])=>`<label class="bmi-check"><input type="checkbox" data-bmi-check="${id}"><span>${safeText(label)}</span></label>`).join('');list.querySelectorAll('input').forEach(c=>c.addEventListener('change',()=>{c.closest('.bmi-check').classList.toggle('done',c.checked);$('bmiChecklistStatus').textContent=list.querySelectorAll('input:checked').length+' of '+bmiChecks.length+' habits checked today.'}));$('bmiChecklistStatus').textContent='0 of '+bmiChecks.length+' habits checked today.';if(window.innerWidth<650)setTimeout(()=>$('bmiOutput').scrollIntoView({behavior:'smooth',block:'start'}),50)}
+ $('bmiHeightUnit').addEventListener('change',toggleBmiHeightUnits);$('bmiWeightUnit').addEventListener('change',toggleBmiWeightUnits);$('calculateBMI').addEventListener('click',calculateBMI);$('resetBmiChecklist').addEventListener('click',()=>{document.querySelectorAll('[data-bmi-check]').forEach(c=>{c.checked=false;c.closest('.bmi-check').classList.remove('done')});$('bmiChecklistStatus').textContent='0 of '+bmiChecks.length+' habits checked today.'});toggleBmiHeightUnits();toggleBmiWeightUnits();
  loadProfile();renderLessons();renderProgress();
  // Main menu is the landing screen after the approved intro; camera remains off until user starts it.
 })();

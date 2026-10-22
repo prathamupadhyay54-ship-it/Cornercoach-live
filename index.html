@@ -661,7 +661,30 @@ $('focus').addEventListener('change',()=>{updateFramingHint();$('stanceChecksBox
 $('view').addEventListener('change',()=>{if(latest)assess(latest)});
 $('stanceChecksBox').style.display=$('focus').value==='stance'?'block':'none';
 updateFramingHint();
-function loop(now){if(!stream)return;raf=requestAnimationFrame(loop);if(video.readyState<2||now-lastDetect<100)return;lastDetect=now;try{const result=landmarker.detectForVideo(video,now);if(result.landmarks&&result.landmarks[0]){latest=result.landmarks[0];drawPose(latest);assess(latest);$('poseState').textContent='Tracking';$('poseState').className='green';setStatus('Camera and pose tracking are active for '+modeInfo().label.toLowerCase()+'.')}else{ctx.clearRect(0,0,1,1);$('poseState').textContent='No body detected';$('poseState').className='yellow';$('visibility').textContent='Not detected';$('balance').textContent='—';$('guard').textContent='—';$('coachTitle').textContent='I can see the camera, not your pose yet';$('coachText').textContent='Face the camera and hold still for 2 seconds. Frame the body parts required for your selected drill: '+modeInfo().hint;health('healthBody','wait','Body');health('healthCoach','wait','Feedback');setStatus('Camera is working; no body landmarks detected yet.')} }catch(e){console.error('Pose detection frame failed:',e);$('poseState').textContent='Detection error';$('poseState').className='red';$('coachTitle').textContent='Pose tracking error';$('coachText').textContent=(e&&e.message)?e.message:'The pose detector failed on a video frame.';health('healthBody','bad','Body');health('healthCoach','bad','Feedback');setStatus('Camera is on, but pose tracking failed: '+((e&&e.message)||e));}}
+function loop(now){if(!stream)return;raf=requestAnimationFrame(loop);if(video.readyState<2||now-lastDetect<100)return;lastDetect=now;try{const result=landmarker.detectForVideo(video,now);if(result.landmarks&&result.landmarks[0]){latest=result.landmarks[0];drawPose(latest);assess(latest);$('poseState').textContent='Tracking';$('poseState').className='green';setStatus('Camera and pose tracking are active for '+modeInfo().label.toLowerCase()+'.')}else{
+ // Never leave an old skeleton or a passing lesson timer active after tracking is lost.
+ latest=null;
+ if(window.box1ngResetLessonHold)window.box1ngResetLessonHold();
+ ctx.clearRect(0,0,1,1);
+ $('poseState').textContent='Body not detected';$('poseState').className='yellow';
+ $('visibility').textContent='Not detected';$('visibility').className='red';
+ $('balance').textContent='Reframe camera';$('balance').className='yellow';
+ $('guard').textContent='Waiting for tracking';$('guard').className='yellow';
+ $('coachTitle').textContent='I can see the camera, not your pose yet';
+ $('coachText').textContent='Step back into view, improve the lighting, and keep the body parts required for this drill visible. '+modeInfo().hint;
+ health('healthBody','wait','Body');health('healthCoach','wait','Feedback');
+ if($('lessonValidationMessage'))$('lessonValidationMessage').textContent='Tracking was lost. Move back into frame; the stance timer has been reset.';
+ setStatus('Camera is working; waiting for a clear body detection.');
+} }catch(e){
+ console.error('Pose detection frame failed:',e);latest=null;
+ if(window.box1ngResetLessonHold)window.box1ngResetLessonHold();
+ ctx.clearRect(0,0,1,1);
+ $('poseState').textContent='Detection error';$('poseState').className='red';
+ $('coachTitle').textContent='Pose tracking interrupted';
+ $('coachText').textContent=(e&&e.message)?e.message:'The pose detector failed on a video frame. Try stopping and starting the camera again.';
+ health('healthBody','bad','Body');health('healthCoach','bad','Feedback');
+ setStatus('Camera is on, but pose tracking failed: '+((e&&e.message)||e));
+}}
 async function startCamera(){
  $('start').disabled=true;
  try {
@@ -707,7 +730,7 @@ async function startCamera(){
 }
 $('start').onclick=startCamera;
 function stop(){
- if(window.box1ngResetLessonHold)window.box1ngResetLessonHold();if(stream){stream.getTracks().forEach(t=>t.stop());stream=null}cancelAnimationFrame(raf);clearInterval(clock);clock=null;video.srcObject=null;ctx.clearRect(0,0,canvas.width,canvas.height);$('placeholder').style.display='block';$('liveBadge').classList.remove('on');$('start').disabled=false;$('stop').disabled=true;$('recalibrate').disabled=true;$('poseState').textContent='Camera off';$('poseState').className='yellow';setStatus('Camera stopped.');resetHealth();health('healthCamera','bad','Camera');}
+ latest=null;if(window.box1ngResetLessonHold)window.box1ngResetLessonHold();if(stream){stream.getTracks().forEach(t=>t.stop());stream=null}cancelAnimationFrame(raf);clearInterval(clock);clock=null;video.srcObject=null;ctx.clearRect(0,0,canvas.width,canvas.height);$('placeholder').style.display='block';$('liveBadge').classList.remove('on');$('start').disabled=false;$('stop').disabled=true;$('recalibrate').disabled=true;$('poseState').textContent='Camera off';$('poseState').className='yellow';setStatus('Camera stopped.');resetHealth();health('healthCamera','bad','Camera');}
 $('stop').onclick=stop;$('recalibrate').onclick=()=>{if(latest)assess(latest);else $('coachText').textContent='Wait until your body is detected.'};window.addEventListener('resize',()=>{if(stream)resizeCanvas()});window.addEventListener('pagehide',stop);
 
 

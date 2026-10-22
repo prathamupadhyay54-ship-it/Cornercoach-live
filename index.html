@@ -137,6 +137,121 @@ body.inner-page .exit-shortcut{display:flex}
  .bmi-result-number{gap:8px}
  .bmi-exact-box{padding:13px}
 }
+
+/* Diet page polish: compact controls, clear meal cards, no redundant panels */
+#dietPage .section-head{margin-bottom:10px}
+#dietPage .intro{max-width:760px;margin-bottom:18px}
+#dietPage .panel{border-radius:22px;padding:clamp(16px,3.5vw,24px);border-color:#34383c;background:linear-gradient(145deg,#1b1d1f,#151617)}
+#dietPage .field-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px 16px}
+#dietPage .field{min-width:0}
+#dietPage .field label{display:block;margin:8px 0 7px;color:#c0c3c5;font-size:13px;font-weight:650}
+#dietPage select,#dietPage input{width:100%;min-height:48px;border:1px solid #3b4044;border-radius:13px;background:#101213;color:#f5f5f3;padding:12px 13px;font:inherit;outline:none}
+#dietPage select:focus,#dietPage input:focus{border-color:#ff5959;box-shadow:0 0 0 3px #ff4d4d20}
+#dietPage .inline-actions{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:16px}
+#buildDietPlan{min-height:48px;padding:13px 20px;box-shadow:0 6px 18px #ff4d4d18;transition:transform .18s ease,opacity .18s ease}
+#buildDietPlan:active{transform:scale(.98)}
+#dietPlanMessage{min-height:18px}
+#dietPlanResult{margin-top:16px;scroll-margin-top:18px}
+.diet-result-head{display:flex;justify-content:space-between;align-items:center;gap:14px;margin-bottom:18px}
+.diet-eyebrow{display:inline-block;color:#ff6868;font-size:11px;font-weight:850;letter-spacing:.16em;margin-bottom:5px}
+.diet-result-head h2{font-size:23px;letter-spacing:-.03em;margin:0 0 4px}
+.diet-result-head .sub{margin:0}
+.diet-result-mark{width:42px;height:42px;flex:0 0 42px;display:grid;place-items:center;border-radius:14px;background:#ff4d4d1a;color:#ff6262;font-size:22px;font-weight:900}
+.diet-meal-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.diet-meal-card{min-width:0;padding:16px;border:1px solid #373b3f;border-radius:16px;background:linear-gradient(145deg,#222527,#1b1d1f)}
+.diet-meal-top{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.diet-meal-icon{width:36px;height:36px;flex:0 0 36px;display:grid;place-items:center;border-radius:11px;background:#303336;font-size:18px}
+.diet-meal-card h3{margin:0;font-size:15px;font-weight:800}
+.diet-meal-card p{margin:0;color:#e1e2e2;font-size:14px;line-height:1.55}
+.diet-goal-note{margin-top:14px;padding:15px 16px;border:1px solid #713434;border-radius:15px;background:linear-gradient(120deg,#2a1c1d,#211819)}
+.diet-goal-note strong{color:#ff8585;font-size:13px}
+.diet-goal-note p{margin:5px 0 0;color:#e6dede;font-size:14px;line-height:1.55}
+.diet-restriction{margin:12px 0 0;color:#c4c6c7;font-size:12px;line-height:1.55}
+.diet-footnote{margin:13px 0 0;color:#8f9498;font-size:11px;line-height:1.5}
+.diet-loading-backdrop{position:fixed;inset:0;z-index:100000;background:#050607a8;display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .18s ease,visibility .18s ease}
+.diet-loading-backdrop.visible{opacity:1;visibility:visible;pointer-events:auto}
+.diet-loading-card{width:min(310px,100%);display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center;padding:24px 20px;border:1px solid #414548;border-radius:20px;background:#1b1d1f;box-shadow:0 18px 70px #0009}
+.diet-loading-card strong{font-size:16px}
+.diet-spinner{width:32px;height:32px;border:3px solid #4a3030;border-top-color:#ff4d4d;border-radius:50%;animation:dietSpin .7s linear infinite}
+@keyframes dietSpin{to{transform:rotate(360deg)}}
+@media(max-width:520px){#dietPage .field-grid,.diet-meal-grid{grid-template-columns:1fr}#dietPage .field-grid{gap:8px}#dietPage .panel{border-radius:19px}.diet-meal-card{padding:14px}.diet-result-head h2{font-size:21px}}
+
+.diet-week-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap;margin-bottom:16px}
+.diet-week-head h2{margin:2px 0 5px;font-size:clamp(22px,4vw,28px);letter-spacing:-.03em}
+.diet-week-meta{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px}
+.diet-chip{display:inline-flex;align-items:center;gap:6px;border:1px solid #454044;background:#252123;color:#f5dede;border-radius:999px;padding:7px 10px;font-size:12px;font-weight:700}
+.diet-week-list{display:grid;gap:12px}
+.diet-day-card{border:1px solid #373b3f;border-radius:18px;overflow:hidden;background:#191b1d}
+.diet-day-title{display:flex;align-items:center;gap:10px;width:100%;padding:13px 15px;background:linear-gradient(100deg,#2a1b1d,#202123);border:0;border-bottom:1px solid #383538;color:#f4f4f4;text-align:left;cursor:pointer;font:inherit}
+.diet-day-title h3{flex:1}
+.diet-day-title:focus-visible{outline:2px solid #ff6868;outline-offset:-3px}
+.diet-day-chevron{width:28px;height:28px;display:grid;place-items:center;border:1px solid #4a3b3d;border-radius:50%;color:#ff8585;transition:transform .2s ease,background .2s ease;flex:none}
+.diet-day-card.is-open .diet-day-chevron{transform:rotate(180deg);background:#ff4d4d18}
+.diet-day-card:not(.is-open) .diet-day-title{border-bottom:0}
+.diet-day-num{display:grid;place-items:center;width:32px;height:32px;border-radius:10px;background:#ff4d4d1a;color:#ff6868;font-weight:850}
+.diet-day-title h3{margin:0;font-size:16px}
+.diet-day-meals{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:12px}
+.diet-day-meals[hidden]{display:none}
+.diet-week-meal{padding:12px;border:1px solid #303438;border-radius:13px;background:#202224;min-width:0}
+.diet-week-meal .meal-label{display:block;color:#ff8585;font-size:11px;font-weight:850;letter-spacing:.06em;text-transform:uppercase;margin-bottom:6px}
+.diet-week-meal p{margin:0;font-size:13px;line-height:1.5;color:#f0f0ef}
+.diet-protein{display:block;margin-top:7px;color:#bfc5c8;font-size:11px;line-height:1.4}
+.diet-budget-note{margin:12px 0 0;color:#bfc3c5;font-size:12px;line-height:1.55}
+.diet-edit-btn{margin-top:14px}
+@media(max-width:520px){.diet-day-meals{grid-template-columns:1fr}.diet-week-meal{padding:13px}.diet-day-title{padding:12px}}
+
+@media(prefers-reduced-motion:reduce){.diet-spinner{animation-duration:1.5s}#buildDietPlan{transition:none}}
+
+
+/* BOX1NG training tree: grouped progression nodes */
+.academy-intro{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:14px 0}
+.academy-progress{min-width:180px;background:#151719;border:1px solid var(--line,#34383b);border-radius:14px;padding:12px 14px}
+.academy-progress strong{display:block;font-size:20px}.academy-progress small{color:var(--muted,#a5a8ab)}
+.academy-progress-track{height:6px;border-radius:99px;background:#34383b;overflow:hidden;margin-top:8px}
+.academy-progress-track span{display:block;height:100%;width:0;background:#ff4b50;transition:width .25s}
+.academy-legend{display:flex;gap:7px;flex-wrap:wrap;color:#aeb1b4;font-size:12px}
+.academy-legend span{border:1px solid #34383b;background:#191b1d;border-radius:99px;padding:6px 9px}
+.curriculum-section{border:1px solid #34383b;background:#17191b;border-radius:17px;padding:13px;margin:13px 0}
+.curriculum-section-head{display:flex;align-items:center;gap:10px;margin-bottom:11px}
+.curriculum-number{width:38px;height:38px;display:grid;place-items:center;background:#352022;border-radius:12px;font-weight:900;color:#ff666a;flex-shrink:0}
+.curriculum-section-head h2{font-size:18px;margin:0}.curriculum-section-head p{font-size:12px;color:#a5a8ab;margin:3px 0 0}
+.curriculum-lessons{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+.curriculum-lesson{display:flex;align-items:center;gap:10px;text-align:left;width:100%;min-width:0;padding:11px;border-radius:13px;border:1px solid #34383b;background:#111315;color:#f3f3f3;cursor:pointer}
+.curriculum-lesson:disabled{cursor:not-allowed;opacity:.52}
+.curriculum-lesson.available{border-color:#555b5e}
+.curriculum-lesson.done{border-color:#39784d;background:#151e18}
+.curriculum-lesson.selected{box-shadow:0 0 0 1px #ff4b50;border-color:#ff4b50}
+.curriculum-lesson-icon{width:38px;height:38px;flex:0 0 38px;display:grid;place-items:center;background:#352022;border-radius:11px;font-size:20px}
+.curriculum-lesson-text{flex:1;min-width:0}.curriculum-lesson-text strong{display:block;font-size:14px;line-height:1.3}.curriculum-lesson-text small{display:block;color:#a9adb0;font-size:11px;line-height:1.4;margin-top:4px}
+.curriculum-status{font-size:19px;font-weight:800;color:#ff666a;flex-shrink:0}.curriculum-lesson.done .curriculum-status{color:#72d68d}
+.lesson-detail{border:1px solid #ff4b5060;background:#17191b;border-radius:17px;padding:16px;margin:16px 0}
+.lesson-detail[hidden]{display:none!important}
+.lesson-detail-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.lesson-detail-top h2{font-size:22px;margin:7px 0 0}.pill-tag{font-size:11px;letter-spacing:.08em;color:#ff777b;font-weight:800}
+.lesson-summary{color:#c0c2c4;line-height:1.55}.lesson-steps{padding-left:23px;line-height:1.65;color:#e2e2e2}.lesson-steps li{padding:3px 0}
+.lesson-detail-actions{margin-top:14px}.stage-note{font-size:12px;color:#a7aaad;line-height:1.5;margin-top:10px}
+@media(max-width:520px){.curriculum-lessons{grid-template-columns:1fr}.academy-progress{width:100%}.curriculum-lesson-text strong{font-size:15px}.curriculum-lesson-text small{font-size:12px}}
+
+
+.lesson-live-link{border:1px solid #493336;background:linear-gradient(135deg,#21191a,#17191b);border-radius:15px;padding:13px 14px;margin:14px 0}
+.lesson-live-top{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.lesson-live-link p{font-size:13px;line-height:1.5;color:#c0c2c4;margin:7px 0}
+.stance-hold-track{height:6px;border-radius:99px;background:#36383a;overflow:hidden;margin:10px 0 5px}
+.stance-hold-track span{display:block;height:100%;width:0;background:#ff4b50;transition:width .12s linear}
+.lesson-live-link small{font-size:11px;color:#a7aaad}
+
+
+/* Custom Practice: keep the camera and its required status elements, hide redundant setup/feedback panels. */
+#liveCoachPage .settings { display:none !important; }
+#liveCoachPage .grid { grid-template-columns:minmax(0,1fr) !important; }
+#liveCoachPage .grid > section:nth-child(2) { display:none !important; }
+#liveCoachPage > .intro { display:none !important; }
+#liveCoachPage > h1 { display:none !important; }
+#liveCoachPage .custom-practice-tips { display:none !important; }
+#liveCoachPage .camera { max-height:min(68vh,620px); aspect-ratio:3/4; }
+#liveCoachPage .grid > section:first-child { min-width:0; }
+#liveCoachPage .grid > section:first-child > .panel:not(:first-child) { display:none !important; }
+
 </style></head>
 <body>
 <div id="welcomeSplash" class="welcome-splash" role="status" aria-label="BOX1NG">
@@ -186,13 +301,31 @@ body.inner-page .exit-shortcut{display:flex}
 </section>
 <section id="libraryPage" class="page">
 <div class="section-head"><h1>Learn Boxing</h1></div>
-<p class="intro">Learn one skill at a time. Open a lesson to read the steps, then practise it in Live Coach. Lessons are a starter curriculum; we will add licensed videos and original demonstrations as the library grows.</p>
-<div class="lesson-list" id="lessonList"></div>
+<p class="intro">Follow the training tree in order. Pass a lesson through practice to unlock the next node.</p>
+<div class="academy-intro">
+  <div class="academy-progress"><strong id="academyProgressText">0 / 9 lessons</strong><small>Verified lessons completed</small><div class="academy-progress-track"><span id="academyProgressBar"></span></div></div>
+  <div class="academy-legend"><span>✓ Passed</span><span>● Available</span><span>🔒 Locked</span></div>
+</div>
+<div id="beginnerCurriculum"></div>
+<div class="lesson-detail" id="academyLessonDetail" hidden>
+  <div class="lesson-detail-top"><div><span class="pill-tag" id="academyLessonTag">BEGINNER · LESSON 01</span><h2 id="academyLessonTitle">Stance and balance</h2></div><button class="btn secondary" type="button" id="closeAcademyLesson" aria-label="Close lesson">×</button></div>
+  <p class="lesson-summary" id="academyLessonSummary"></p>
+  <strong>What you'll learn</strong><ol class="lesson-steps" id="academyLessonSteps"></ol>
+  <div class="lesson-detail-actions"><button class="btn primary" type="button" id="startAcademyPractice">Practise in Live Coach</button></div>
+  <div class="stage-note" id="lessonDetailStatus">Pass the first lesson through reliable live-camera practice to unlock the next node.</div>
+</div>
 <div class="notice" style="margin-top:14px">Camera checks are estimates, not a certification of boxing technique. Practise slowly in a clear space.</div>
 </section>
 <section id="liveCoachPage" class="page">
 <div class="section-head"><h1>Live Coach</h1></div>
 <p class="intro">Start the camera and select a drill. Your current prototype's camera and pose-tracking code remains in this page.</p>
+<div class="lesson-live-link" id="lessonLiveLink">
+  <div class="lesson-live-top"><strong id="liveLessonTitle">Lesson 01 · Stance and balance</strong><span class="pill-tag">LIVE CHECK</span></div>
+  <p id="liveLessonInstruction">Keep your full body in frame and hold a balanced stance.</p>
+  <p id="lessonValidationMessage">Hold all required stance checks for 5 continuous seconds to pass Lesson 01 and unlock Custom Practice.</p>
+  <div class="stance-hold-track"><span id="stanceHoldBar"></span></div>
+  <small id="stanceHoldText">0 / 5 seconds</small>
+</div>
 <h1>Fix your form<br>while you move.</h1>
 <p class="intro">Use your phone camera for live posture feedback. This prototype tracks visible body landmarks in your browser and gives basic stance and guard cues. It is not a professional boxing coach and cannot reliably judge punch technique or safety.</p>
 <div class="grid">
@@ -227,7 +360,7 @@ body.inner-page .exit-shortcut{display:flex}
 <div class="coachbox" id="stanceChecksBox"><h3>🥊 Stance posture checks</h3><p class="small" style="margin:0">Thick white skeleton by default. Only the arm, leg or joint that fails a check turns red; passing sections turn green. Blue arrows show what to adjust.</p><div class="checklist"><div class="checkitem wait" id="checkGuard"><span class="checkmark">…</span><div><div class="checklabel">Hands near guard</div><div class="checkdetail">Waiting for hands</div></div></div><div class="checkitem wait" id="checkElbows"><span class="checkmark">…</span><div><div class="checklabel">Elbows tucked</div><div class="checkdetail">Waiting for elbows</div></div></div><div class="checkitem wait" id="checkBase"><span class="checkmark">…</span><div><div class="checklabel">Stable base</div><div class="checkdetail">Waiting for feet</div></div></div><div class="checkitem wait" id="checkKnees"><span class="checkmark">…</span><div><div class="checklabel">Soft knee bend</div><div class="checkdetail">Waiting for knees</div></div></div></div><div class="overlay-legend"><span><i class="legend-dot legend-white"></i>Not judged / neutral</span><span><i class="legend-dot legend-green"></i>Check passed</span><span><i class="legend-dot legend-red"></i>Needs adjustment</span><span><i class="legend-dot legend-blue"></i>Correction cue</span></div></div>
 <button class="btn secondary wide" id="recalibrate" disabled>Recheck posture</button>
 </div>
-<div class="panel"><h2>🎯 How to get useful feedback</h2><ul class="tips"><li>Place the phone securely at about waist-to-chest height, not in your hand.</li><li>Use bright, even lighting. The framing requirement changes with your selected drill.</li><li>Start with a relaxed stance and guard. Do not throw hard punches near your phone.</li><li>Move slowly at first. The detector may lose hands or ankles when they move quickly or leave the frame.</li></ul>
+<div class="panel custom-practice-tips"><h2>🎯 How to get useful feedback</h2><ul class="tips"><li>Place the phone securely at about waist-to-chest height, not in your hand.</li><li>Use bright, even lighting. The framing requirement changes with your selected drill.</li><li>Start with a relaxed stance and guard. Do not throw hard punches near your phone.</li><li>Move slowly at first. The detector may lose hands or ankles when they move quickly or leave the frame.</li></ul>
 <div class="coachbox"><h3>Safety first</h3><div class="coachmsg">Train in clear space. Do not use this prototype for sparring, impact timing, injury assessment, or as proof that your technique is correct. Stop if you feel pain, dizzy, or unwell.</div></div>
 </div>
 </section></div>
@@ -323,27 +456,19 @@ body.inner-page .exit-shortcut{display:flex}
 <section id="dietPage" class="page">
 <div class="section-head"><h1>Diet & Nutrition</h1></div>
 <p class="intro">Build a simple, affordable Indian meal routine around your food preference and goal. No miracle diets, no supplement sales pitch, just ordinary food doing its job.</p>
-<div class="panel">
-  <h2>Set your plan</h2>
-  <p class="sub">These choices are saved on this device. Your profile's food restrictions are used too, if you've added them.</p>
+<div class="panel" id="dietPlanFormPanel">
+  <h2>Build your weekly plan</h2>
+  <p class="sub">Choose foods and a realistic daily budget. Your settings stay saved when you edit the plan.</p>
   <div class="field-grid">
     <div class="field"><label for="dietPlanPreference">Food preference</label><select id="dietPlanPreference"><option value="vegetarian">Indian vegetarian</option><option value="vegan">Vegan</option><option value="nonvegetarian">Non-vegetarian</option></select></div>
     <div class="field"><label for="dietGoal">Main goal</label><select id="dietGoal"><option value="gain">Gain weight gradually</option><option value="maintain">Maintain weight and energy</option><option value="lose">Lose weight gradually</option><option value="boxing">Support boxing training</option></select></div>
-    <div class="field"><label for="dietBudget">Daily food budget</label><select id="dietBudget"><option value="low">Budget-friendly</option><option value="medium">Moderate</option><option value="flexible">Flexible</option></select></div>
+    <div class="field"><label for="dietBudget">Budget per person, per day</label><select id="dietBudget"><option value="low">₹80–₹120 · Very budget-friendly</option><option value="medium">₹120–₹180 · Moderate</option><option value="high">₹180–₹250 · More variety</option><option value="flexible">₹250+ · Flexible</option></select></div>
     <div class="field"><label for="dietMeals">Meals you prefer</label><select id="dietMeals"><option value="3">3 meals</option><option value="4" selected>3 meals + 1 snack</option><option value="5">3 meals + 2 snacks</option></select></div>
   </div>
   <div class="field"><label for="dietRestrictions">Foods to avoid (optional)</label><input id="dietRestrictions" maxlength="250" placeholder="Allergies, dislikes, or unavailable foods"></div>
   <div class="inline-actions"><button class="btn primary" id="buildDietPlan" type="button">Build my meal plan</button><span id="dietPlanMessage" class="small" aria-live="polite"></span></div>
 </div>
-<div class="panel" id="dietPlanResult" aria-live="polite">
-  <h2>Your daily meal outline</h2>
-  <p class="sub">Choose your preferences above and tap “Build my meal plan”.</p>
-</div>
-<div class="panel">
-  <h2>Simple habits that help</h2>
-  <div class="tips"><ul><li>Eat at reasonably regular times. Add a snack if large meals are difficult.</li><li>Use everyday foods such as roti, rice, poha, potatoes, dal, chole, rajma, seasonal vegetables, fruit, milk or suitable alternatives.</li><li>Include a protein source across the day, choosing foods that fit your budget and preference.</li><li>Drink water regularly and keep sleep as consistent as you can.</li></ul></div>
-  <p class="small">This is general guidance, not a medical diet. If your weight changes unexpectedly, you have ongoing symptoms, or you need a condition-specific plan, speak with a qualified healthcare professional. If you are under 18, avoid using adult weight-loss targets.</p>
-</div>
+<div class="panel hidden" id="dietPlanResult" aria-live="polite"></div>
 </section>
 <section id="profilePage" class="page">
 <div class="section-head"><h1>My Profile</h1></div>
@@ -461,7 +586,6 @@ function drawPose(lm){
    const ang=Math.atan2(ey-sy,ex-sx),ah=.014;
    ctx.beginPath();ctx.moveTo(ex,ey);ctx.lineTo(ex-ah*Math.cos(ang-.55),ey-ah*Math.sin(ang-.55));ctx.moveTo(ex,ey);ctx.lineTo(ex-ah*Math.cos(ang+.55),ey-ah*Math.sin(ang+.55));ctx.stroke();
  };
- if(guardVisible&&!guardOK){cue('HANDS UP',.04,.13,lm[15].y>lm[16].y?15:16)}
  if(leftElbowKnown&&!leftElbowOK)cue('TUCK ELBOW',.04,.27,13);
  if(rightElbowKnown&&!rightElbowOK)cue('TUCK ELBOW',.64,.27,14);
  if(feetKnown&&!baseOK)cue('CHECK BASE',.04,.82,27);
@@ -495,6 +619,11 @@ function assess(lm){
  const kneeL=jointAngle(lm[23],lm[25],lm[27]),kneeR=jointAngle(lm[24],lm[26],lm[28]);
  const kneeKnown=kneeL!==null&&kneeR!==null;
  const kneesOK=kneeKnown&&kneeL>=145&&kneeL<=178&&kneeR>=145&&kneeR<=178;
+ if(window.box1ngOnPoseAssessment)window.box1ngOnPoseAssessment({
+   focus,
+   reliable:enough&&handsVisible&&shouldersVisible&&hipsVisible&&feetVisible,
+   stancePass:enough&&handsVisible&&handsHigh&&elbowVisible&&elbowOK&&feetVisible&&baseOK&&($('view').value!=='side'||(kneeKnown&&kneesOK))
+ });
  if(focus==='stance'){
    setCheck('checkGuard',handsVisible?(handsHigh?'ok':'bad'):'wait',handsVisible?(handsHigh?'Hands near cheek level':'Raise hands toward cheek level'):'Hands not clearly visible');
    setCheck('checkElbows',elbowVisible?(elbowOK?'ok':'bad'):'wait',elbowVisible?(elbowOK?'Elbows appear tucked':'Bring elbows closer to your torso'):'Elbows not clearly visible');
@@ -533,9 +662,12 @@ $('view').addEventListener('change',()=>{if(latest)assess(latest)});
 $('stanceChecksBox').style.display=$('focus').value==='stance'?'block':'none';
 updateFramingHint();
 function loop(now){if(!stream)return;raf=requestAnimationFrame(loop);if(video.readyState<2||now-lastDetect<100)return;lastDetect=now;try{const result=landmarker.detectForVideo(video,now);if(result.landmarks&&result.landmarks[0]){latest=result.landmarks[0];drawPose(latest);assess(latest);$('poseState').textContent='Tracking';$('poseState').className='green';setStatus('Camera and pose tracking are active for '+modeInfo().label.toLowerCase()+'.')}else{ctx.clearRect(0,0,1,1);$('poseState').textContent='No body detected';$('poseState').className='yellow';$('visibility').textContent='Not detected';$('balance').textContent='—';$('guard').textContent='—';$('coachTitle').textContent='I can see the camera, not your pose yet';$('coachText').textContent='Face the camera and hold still for 2 seconds. Frame the body parts required for your selected drill: '+modeInfo().hint;health('healthBody','wait','Body');health('healthCoach','wait','Feedback');setStatus('Camera is working; no body landmarks detected yet.')} }catch(e){console.error('Pose detection frame failed:',e);$('poseState').textContent='Detection error';$('poseState').className='red';$('coachTitle').textContent='Pose tracking error';$('coachText').textContent=(e&&e.message)?e.message:'The pose detector failed on a video frame.';health('healthBody','bad','Body');health('healthCoach','bad','Feedback');setStatus('Camera is on, but pose tracking failed: '+((e&&e.message)||e));}}
-$('start').onclick=async()=>{
+async function startCamera(){
  $('start').disabled=true;
  try {
+   if(!window.isSecureContext || !navigator.mediaDevices || !navigator.mediaDevices.getUserMedia){
+     throw new Error('Camera access requires the deployed HTTPS website. A downloaded content:// file cannot reliably open the camera. Open your Vercel HTTPS site in Chrome and allow Camera permission.');
+   }
    setStatus('Requesting camera permission…');
    stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:'user',width:{ideal:640},height:{ideal:800}},audio:false});
    video.srcObject=stream;health('healthCamera','ok','Camera');health('healthModel','wait','AI model');health('healthBody','wait','Body');health('healthCoach','wait','Feedback');
@@ -566,14 +698,16 @@ $('start').onclick=async()=>{
    }
  } catch(e) {
    console.error(e);
-   setStatus(e.name==='NotAllowedError'?'Camera permission denied. Allow camera access in browser settings, then try again.':'Camera could not start: '+(e.message||e)+'. Try Chrome and check camera permission.');
+   setStatus(e.name==='NotAllowedError'?'Camera permission denied or blocked. In Chrome, open Site settings for this HTTPS website, set Camera to Allow, then reload.':e.name==='NotFoundError'?'No available camera was found on this device.':'Camera could not start: '+(e.message||e)+'. Open the deployed HTTPS site in Chrome and check camera permission.');
    $('poseState').textContent='Camera unavailable';
    $('poseState').className='red';
    if(stream){stream.getTracks().forEach(t=>t.stop());stream=null;}
    $('start').disabled=false;
  }
-};
-function stop(){if(stream){stream.getTracks().forEach(t=>t.stop());stream=null}cancelAnimationFrame(raf);clearInterval(clock);clock=null;video.srcObject=null;ctx.clearRect(0,0,canvas.width,canvas.height);$('placeholder').style.display='block';$('liveBadge').classList.remove('on');$('start').disabled=false;$('stop').disabled=true;$('recalibrate').disabled=true;$('poseState').textContent='Camera off';$('poseState').className='yellow';setStatus('Camera stopped.');resetHealth();health('healthCamera','bad','Camera');}
+}
+$('start').onclick=startCamera;
+function stop(){
+ if(window.box1ngResetLessonHold)window.box1ngResetLessonHold();if(stream){stream.getTracks().forEach(t=>t.stop());stream=null}cancelAnimationFrame(raf);clearInterval(clock);clock=null;video.srcObject=null;ctx.clearRect(0,0,canvas.width,canvas.height);$('placeholder').style.display='block';$('liveBadge').classList.remove('on');$('start').disabled=false;$('stop').disabled=true;$('recalibrate').disabled=true;$('poseState').textContent='Camera off';$('poseState').className='yellow';setStatus('Camera stopped.');resetHealth();health('healthCamera','bad','Camera');}
 $('stop').onclick=stop;$('recalibrate').onclick=()=>{if(latest)assess(latest);else $('coachText').textContent='Wait until your body is detected.'};window.addEventListener('resize',()=>{if(stream)resizeCanvas()});window.addEventListener('pagehide',stop);
 
 
@@ -595,15 +729,131 @@ $('stop').onclick=stop;$('recalibrate').onclick=()=>{if(latest)assess(latest);el
  ];
  let data={profile:{},dietSettings:{preference:'vegetarian',goal:'gain',budget:'low',meals:'4',restrictions:''},completed:[],trainingDates:[],trainingSessions:[],feedback:[]};
  try{const saved=JSON.parse(localStorage.getItem(STORE)||'null');if(saved&&typeof saved==='object')data={...data,...saved,profile:{...data.profile,...(saved.profile||{})},dietSettings:{...data.dietSettings,...(saved.dietSettings||{})}};}catch(e){}
+ const academyKey='box1ng_beginner_verified_v2';
+ let academyDone=[];try{academyDone=JSON.parse(localStorage.getItem(academyKey)||'[]');if(!Array.isArray(academyDone))academyDone=[];}catch(e){academyDone=[];}
+ let activePracticeLesson=null,stanceHoldStart=0,stanceHoldSeconds=0,stanceLastCheck=0,activeTreeLesson=null;
+ function academyIsUnlocked(i){return i===0||academyDone.includes(i-1);}
  function persist(){try{localStorage.setItem(STORE,JSON.stringify(data));return true}catch(e){return false}}
  function safeText(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
  function showPage(id){document.querySelectorAll('.page').forEach(p=>p.classList.toggle('active',p.id===id));document.querySelectorAll('[data-page]').forEach(b=>b.classList.toggle('active',b.dataset.page===id));document.body.classList.toggle('inner-page',id!=='homePage');if(id==='progressPage')renderProgress();if(id==='profilePage')renderProfileExtras();if(id==='dietPage')renderDietPage();window.scrollTo({top:0,behavior:'smooth'});}
- document.querySelectorAll('[data-page]').forEach(b=>b.addEventListener('click',()=>showPage(b.dataset.page)));
+ document.querySelectorAll('[data-page]').forEach(b=>b.addEventListener('click',()=>{
+   const target=b.dataset.page;
+   if(target==='liveCoachPage'&&!academyDone.includes(0)&&activePracticeLesson!==0){
+     alert('Custom Practice is locked. Pass Lesson 01: Stance and balance first.');
+     showPage('libraryPage');return;
+   }
+   showPage(target);
+ }));
  const bmiMenuCard=document.querySelector('[data-page="bmiPage"]');if(bmiMenuCard){bmiMenuCard.addEventListener('click',function(){const target=document.getElementById('bmiPage');if(target){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));target.classList.add('active');document.querySelectorAll('[data-page]').forEach(b=>b.classList.toggle('active',b.dataset.page==='bmiPage'));document.body.classList.add('inner-page');window.scrollTo({top:0,behavior:'auto'});}},true); }
  const brandHome=$('brandHome');if(brandHome)brandHome.addEventListener('click',()=>showPage('homePage'));
  const exitToHome=$('exitToHome');if(exitToHome)exitToHome.addEventListener('click',()=>showPage('homePage'));
- function renderLessons(){const html=lessons.map((l,i)=>{const done=data.completed.includes(i);return `<div class="lesson-card"><div class="lesson-num">${String(i+1).padStart(2,'0')}</div><div style="flex:1;min-width:150px"><h3>${safeText(l[0])} ${done?'✓':''}</h3><p>${safeText(l[1])}</p></div><button class="btn ${done?'secondary':'primary'}" data-lesson="${i}">${done?'Review':'Open'}</button></div>`}).join('');$('lessonList').innerHTML=html;$('progressLessonList').innerHTML=html;document.querySelectorAll('[data-lesson]').forEach(b=>b.addEventListener('click',()=>openLesson(Number(b.dataset.lesson))));}
- function openLesson(i){const l=lessons[i];const done=data.completed.includes(i);const msg=`LESSON ${i+1}: ${l[0]}\n\n${l[1]}\n\nPractice slowly in a clear space. When you're ready, use Live Coach for the relevant camera drill. Mark the lesson complete only after practising it.`;if(window.confirm(msg+'\n\nPress OK to go to Live Coach, or Cancel to stay in the Library.')){data.currentLesson=i;persist();showPage('liveCoachPage');const focus=$('focus');if(focus){const f=i===0?'stance':i===1?'guard':i===2?'footwork':i===3||i===4?'jab':'shadow';focus.value=f;focus.dispatchEvent(new Event('change'));} }else if(window.confirm('Mark this lesson complete? Only mark it after you have practised it.')){if(!data.completed.includes(i))data.completed.push(i);persist();renderLessons();renderProgress();}}
+ function renderLessons(){
+   const groups=[
+     {name:'Foundations',ids:[0,1,2]},
+     {name:'Punches',ids:[3,4,5,6]},
+     {name:'Defence and combinations',ids:[7,8]}
+   ];
+   let html='';
+   groups.forEach((group,g)=>{
+     html+=`<section class="curriculum-section"><div class="curriculum-section-head"><div class="curriculum-number">${String(g+1).padStart(2,'0')}</div><div><h2>${safeText(group.name)}</h2><p>${group.ids.length} lessons · progress in order</p></div></div><div class="curriculum-lessons">`;
+     group.ids.forEach(i=>{
+       const l=lessons[i],done=academyDone.includes(i),unlocked=academyIsUnlocked(i),selected=activeTreeLesson===i;
+       const icon=['🧍','🥊','👣','👊','💥','↪️','⬆️','🛡️','🔗'][i];
+       html+=`<button type="button" class="curriculum-lesson ${unlocked?'available':''} ${done?'done':''} ${selected?'selected':''}" data-academy-lesson="${i}" ${unlocked?'':'disabled'} aria-label="${unlocked?'Open':'Locked'} lesson ${i+1}: ${safeText(l[0])}"><span class="curriculum-lesson-icon">${icon}</span><span class="curriculum-lesson-text"><strong>${String(i+1).padStart(2,'0')}. ${safeText(l[0])}</strong><small>${safeText(l[1])}</small></span><span class="curriculum-status">${done?'✓':unlocked?'›':'🔒'}</span></button>`;
+     });
+     html+='</div></section>';
+   });
+   const tree=$('beginnerCurriculum');if(tree)tree.innerHTML=html;
+   const count=academyDone.length;
+   if($('academyProgressText'))$('academyProgressText').textContent=`${count} / ${lessons.length} lessons`;
+   if($('academyProgressBar'))$('academyProgressBar').style.width=(count/lessons.length*100)+'%';
+   document.querySelectorAll('[data-academy-lesson]').forEach(b=>b.addEventListener('click',()=>openLesson(Number(b.dataset.academyLesson))));
+   // Keep the Progress page's legacy list, but show verified/locked status instead of a second lesson menu.
+   if($('lessonList'))$('lessonList').innerHTML='';
+   if($('progressLessonList'))$('progressLessonList').innerHTML=lessons.map((l,i)=>`<div class="lesson-card"><div class="lesson-num">${String(i+1).padStart(2,'0')}</div><div style="flex:1;min-width:150px"><h3>${safeText(l[0])}</h3><p>${safeText(l[1])}</p></div><span class="pill">${academyDone.includes(i)?'Passed ✓':academyIsUnlocked(i)?'Available':'Locked 🔒'}</span></div>`).join('');
+ }
+ function openLesson(i){
+   const l=lessons[i];if(!l||!academyIsUnlocked(i))return;
+   activeTreeLesson=i;
+   const steps=[
+     ['Choose a comfortable stance: orthodox or southpaw.','Keep your feet apart with knees softly bent.','Keep your weight balanced and avoid leaning too far forward or backward.','Hold the position, breathe normally, then reset.'],
+     ['Bring both hands near cheek level.','Keep your chin gently tucked and shoulders relaxed.','Keep elbows comfortable and close to your body.','Return both hands to guard after movement.'],
+     ['Start from your stance.','Take small steps without crossing your feet.','Bring the other foot back to your stance width.','Practise forward, backward and lateral movement slowly.'],
+     ['Start in stance with both hands up.','Extend the lead hand in a controlled straight line.','Keep the other hand near your cheek.','Return the lead hand to guard.'],
+     ['Start from a stable stance and guard.','Extend the rear hand smoothly without overreaching.','Allow gentle hip and torso rotation.','Return to guard and reset your balance.'],
+     ['Begin in stance with hands protecting your face.','Practise a short horizontal arc without swinging wildly.','Keep your wrist aligned and movement controlled.','Return to guard before repeating.'],
+     ['Start from a stable stance.','Use a small, controlled upward path.','Avoid dipping excessively or leaning backward.','Return to guard and regain balance.'],
+     ['Keep your hands in guard.','Practise a small, controlled defensive movement.','Keep your eyes forward and balance stable.','Return to your starting guard.'],
+     ['Start with stance and guard.','Practise a slow jab-cross sequence without full power.','Return hands to guard after each punch.','Reset your feet and balance before repeating.']
+   ][i];
+   $('academyLessonTag').textContent='BEGINNER · LESSON '+String(i+1).padStart(2,'0');
+   $('academyLessonTitle').textContent=l[0];
+   $('academyLessonSummary').textContent=l[1];
+   $('academyLessonSteps').innerHTML=steps.map(step=>`<li>${safeText(step)}</li>`).join('');
+   $('lessonDetailStatus').textContent=academyDone.includes(i)?'Verified lesson completed.':i===0?'Start the camera and hold a stable stance with reliable tracking and all required checks passing for 5 continuous seconds.':'This lesson is unlocked for preview. Verified completion checks for this technique will be added in a later training stage.';
+   $('startAcademyPractice').textContent=i===0&&!academyDone.includes(0)?'Practise to unlock Lesson 02':'Practise in Custom Practice';
+   $('academyLessonDetail').hidden=false;
+   renderLessons();
+   // Automatically bring the selected lesson detail and Start button into view.
+   requestAnimationFrame(()=> {
+     const detail=$('academyLessonDetail');
+     if(detail) detail.scrollIntoView({behavior:'smooth',block:'start'});
+     const start=$('startAcademyPractice');
+     if(start) start.focus({preventScroll:true});
+   });
+ }
+ function passFirstLesson(){
+   if(academyDone.includes(0))return;
+   academyDone.push(0);academyDone.sort((a,b)=>a-b);
+   try{localStorage.setItem(academyKey,JSON.stringify(academyDone));}catch(e){}
+   activePracticeLesson=null;stanceHoldStart=0;stanceHoldSeconds=0;stanceLastCheck=0;
+   renderLessons();renderProgress();
+   if($('lessonDetailStatus'))$('lessonDetailStatus').textContent='Stance lesson passed! Lesson 02: Guard and chin is now unlocked.';
+   if($('lessonValidationMessage'))$('lessonValidationMessage').textContent='Stance lesson passed. Lesson 02: Guard and chin is now unlocked.';
+   if($('startAcademyPractice'))$('startAcademyPractice').textContent='Practise in Custom Practice';
+ }
+ window.box1ngResetLessonHold=function(){stanceHoldStart=0;stanceHoldSeconds=0;stanceLastCheck=0;updateAcademyHoldUI();};
+ window.box1ngOnPoseAssessment=function(a){
+   if(!document.getElementById('liveCoachPage')?.classList.contains('active')||activePracticeLesson!==0||!a||a.focus!=='stance'||academyDone.includes(0)){
+     stanceHoldStart=0;stanceHoldSeconds=0;stanceLastCheck=0;updateAcademyHoldUI();return;
+   }
+   const now=performance.now();
+   if(stanceLastCheck&&now-stanceLastCheck>1000)stanceHoldStart=0;
+   stanceLastCheck=now;
+   if(!a.reliable||!a.stancePass){
+     stanceHoldStart=0;stanceHoldSeconds=0;updateAcademyHoldUI();
+     if($('lessonValidationMessage'))$('lessonValidationMessage').textContent=!a.reliable?'Move back until your full body is clearly visible. The timer is paused.':'Adjust your stance until the required checks pass. The timer resets when a check fails.';
+     return;
+   }
+   if(!stanceHoldStart)stanceHoldStart=now;
+   stanceHoldSeconds=Math.min(5,(now-stanceHoldStart)/1000);
+   updateAcademyHoldUI();
+   if($('lessonValidationMessage'))$('lessonValidationMessage').textContent='Stance checks passing. Hold steady until the timer reaches 5 seconds.';
+   if(stanceHoldSeconds>=5)passFirstLesson();
+ };
+ function updateAcademyHoldUI(){
+   const bar=$('stanceHoldBar'),text=$('stanceHoldText');
+   if(bar)bar.style.width=Math.max(0,Math.min(100,stanceHoldSeconds/5*100))+'%';
+   if(text)text.textContent=`${Math.floor(stanceHoldSeconds)} / 5 seconds`;
+ }
+ $('closeAcademyLesson').addEventListener('click',()=>{$('academyLessonDetail').hidden=true;activeTreeLesson=null;renderLessons();});
+ $('startAcademyPractice').addEventListener('click',()=>{
+   const i=activeTreeLesson;if(!Number.isInteger(i)||!academyIsUnlocked(i))return;
+   if(i>0&&!academyDone.includes(0))return;
+   activePracticeLesson=i;
+   data.currentLesson=i;persist();
+   const focus=$('focus');
+   if(focus){focus.value=i===0?'stance':i===1?'guard':i===2?'footwork':i===3||i===4?'jab':i===7?'guard':'shadow';focus.dispatchEvent(new Event('change'));}
+   if($('liveLessonTitle'))$('liveLessonTitle').textContent=`LESSON ${String(i+1).padStart(2,'0')} · ${lessons[i][0]}`;
+   if($('liveLessonInstruction'))$('liveLessonInstruction').textContent=lessons[i][1];
+   if($('lessonValidationMessage'))$('lessonValidationMessage').textContent=i===0&&!academyDone.includes(0)?'Hold all required stance checks for 5 continuous seconds to pass Lesson 01 and unlock Custom Practice.':academyDone.includes(i)?'This lesson is already passed.':'Practice preview only. Verified completion checks for this technique are not available yet.';
+   showPage('liveCoachPage');
+   const cam=$('cameraBox');
+   if(cam) requestAnimationFrame(()=>cam.scrollIntoView({behavior:'smooth',block:'start'}));
+   // Call getUserMedia from this real tap. A delayed synthetic click can lose
+   // browser user activation and fail to trigger the camera permission flow.
+   if(!stream) startCamera();
+ });
  function readProfileForm(){return {name:$('fullName').value.trim(),age:$('age').value,height:Number($('heightCm').value)||'',weight:Number($('weightKg').value)||'',experience:$('experience').value,goal:$('goal').value,diet:$('diet').value,trainingPlace:$('trainingPlace').value,startDate:$('startDate').value,daysPerWeek:$('daysPerWeek').value,foodAvoid:$('foodAvoid').value.trim(),notes:$('profileNotes').value.trim(),avatarStyle:$('avatarStyle').value,photo:data.profile.photo||''}}
  function loadProfile(){const p=data.profile||{};for(const id of ['fullName','age','heightCm','weightKg','experience','goal','diet','trainingPlace','startDate','daysPerWeek','foodAvoid','profileNotes'])if($(id)&&p[id]!==undefined&&p[id]!==null)$(id).value=p[id];if(!$('startDate').value){const d=new Date();$('startDate').value=`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;}updateAvatar();}
  function updateAvatar(){const name=data.profile.name||'';const av=$('profileAvatar');if(!av)return;if(data.profile.photo){av.innerHTML=`<img alt="Profile picture" src="${data.profile.photo}">`}else av.textContent=(data.profile.avatarStyle||'🥊');$('profileDisplayName').textContent=name||'Your profile';if($('avatarStyle'))$('avatarStyle').value=data.profile.avatarStyle||'🥊';}
@@ -613,39 +863,164 @@ $('stop').onclick=stop;$('recalibrate').onclick=()=>{if(latest)assess(latest);el
    const d=data.dietSettings||{};
    if($('dietPlanPreference'))$('dietPlanPreference').value=d.preference||data.profile.diet||'vegetarian';
    if($('dietGoal'))$('dietGoal').value=d.goal||'gain';
-   if($('dietBudget'))$('dietBudget').value=d.budget||'low';
+   if($('dietBudget'))$('dietBudget').value=['low','medium','high','flexible'].includes(d.budget)?d.budget:'low';
    if($('dietMeals'))$('dietMeals').value=d.meals||'4';
    if($('dietRestrictions'))$('dietRestrictions').value=d.restrictions||data.profile.foodAvoid||'';
-   if(d.generated)renderDietPlan(d);
+   if(d.generated){renderDietPlan(d);$('dietPlanFormPanel').classList.add('hidden');$('dietPlanResult').classList.remove('hidden');}
+   else{$('dietPlanFormPanel').classList.remove('hidden');$('dietPlanResult').classList.add('hidden');}
  }
  function renderDietPlan(d){
    const preference=d.preference||'vegetarian', goal=d.goal||'gain', budget=d.budget||'low', meals=Number(d.meals||4);
    const avoid=(d.restrictions||data.profile.foodAvoid||'').trim();
-   const options={
-    vegetarian:{breakfast:['Poha with peanuts and a banana','Milk with peanut-butter bread and a banana','Vegetable upma with milk'],lunch:['Roti, dal, seasonal sabzi and rice if available','Chole with rice and cucumber','Rajma-rice with seasonal vegetables'],snack:['Banana and roasted chana','Peanuts with fruit','Milk or a suitable fortified alternative'],dinner:['Roti, sabzi and dal','Rice with chole and vegetables','Vegetable khichdi with peanuts on the side']},
-    vegan:{breakfast:['Poha with peanuts and a banana','Besan chilla with chutney','Oats with banana and peanut butter'],lunch:['Roti, dal, seasonal sabzi and rice if available','Chole with rice and cucumber','Rajma-rice with seasonal vegetables'],snack:['Banana and roasted chana','Peanuts with fruit','Roasted chana and seasonal fruit'],dinner:['Roti, sabzi and dal','Rice with chole and vegetables','Vegetable khichdi with peanuts on the side']},
-    nonvegetarian:{breakfast:['Eggs with roti or bread and fruit','Poha with peanuts and a banana','Milk, bread and a banana'],lunch:['Roti, dal, seasonal sabzi and eggs if available','Rice, chicken and vegetables','Roti with egg bhurji and seasonal sabzi'],snack:['Banana and roasted chana','Boiled eggs and fruit','Milk with a small handful of nuts'],dinner:['Roti, sabzi and eggs','Rice with chicken and vegetables','Dal, roti and a side of eggs']}
+   const foodSets={
+    vegetarian:{
+      low:[
+       [['Poha with peanuts','Peanuts add some protein'],['Roti, dal and seasonal sabzi','Dal is the main protein source'],['Roasted chana and banana','Roasted chana adds protein'],['Rice or roti, chole','Chickpeas provide protein']],
+       [['Besan chilla with chutney','Besan provides protein'],['Rajma-rice','Rajma is the main protein source'],['Peanuts and seasonal fruit','Peanuts add protein and energy'],['Roti, dal and vegetables','Dal provides protein']],
+       [['Milk and peanut-butter bread','Milk and peanuts add protein'],['Chole with roti','Chickpeas provide protein'],['Roasted chana','Protein-rich snack'],['Khichdi with extra dal','Dal adds protein']],
+       [['Vegetable upma with peanuts','Peanuts add protein'],['Dal-rice with sabzi','Dal provides protein'],['Banana and roasted chana','Chana adds protein'],['Roti with kala chana','Kala chana provides protein']],
+       [['Sattu drink and banana','Sattu provides protein'],['Chana dal with rice','Chana dal provides protein'],['Peanuts and fruit','Peanuts add protein'],['Roti, soy chunks and sabzi','Soy chunks are protein-rich']],
+       [['Besan cheela','Besan provides protein'],['Lobia with rice','Lobia provides protein'],['Roasted chana and fruit','Chana adds protein'],['Roti, dal and sabzi','Dal provides protein']],
+       [['Poha with peanuts and milk','Milk and peanuts add protein'],['Chole-rice bowl','Chickpeas provide protein'],['Sattu drink or roasted chana','Sattu/chana adds protein'],['Roti, dal and seasonal vegetables','Dal provides protein']]
+      ],
+      medium:[
+       [['Milk, peanut-butter toast and banana','Milk and peanut butter add protein'],['Rajma-rice with curd','Rajma and curd provide protein'],['Roasted chana and fruit','Chana adds protein'],['Roti, paneer bhurji and sabzi','Paneer is the main protein source']],
+       [['Besan chilla with curd','Besan and curd add protein'],['Chole, rice and curd','Chickpeas and curd provide protein'],['Milk and banana','Milk adds protein'],['Roti, dal and vegetables','Dal provides protein']],
+       [['Oats with milk and peanuts','Milk and peanuts add protein'],['Soy-chunk pulao with vegetables','Soy chunks provide protein'],['Fruit and roasted chana','Chana adds protein'],['Roti, paneer and sabzi','Paneer provides protein']],
+       [['Paneer-stuffed paratha with curd','Paneer and curd add protein'],['Dal, rice and seasonal sabzi','Dal provides protein'],['Peanuts and fruit','Peanuts add protein'],['Chole with roti and salad','Chickpeas provide protein']],
+       [['Milk, banana and peanut butter','Milk and peanut butter add protein'],['Rajma with rice and curd','Rajma and curd add protein'],['Roasted chana','Protein-rich snack'],['Soy bhurji with roti','Soy provides protein']],
+       [['Besan chilla and milk','Besan and milk add protein'],['Paneer bhurji, roti and sabzi','Paneer provides protein'],['Curd and fruit','Curd adds protein'],['Dal khichdi with peanuts','Dal adds protein']],
+       [['Poha with peanuts and curd','Peanuts and curd add protein'],['Chole-rice with salad','Chickpeas provide protein'],['Milk or roasted chana','Adds protein'],['Roti, dal and paneer or curd','Dal plus dairy protein']]
+      ],
+      high:[
+       [['Paneer bhurji toast and milk','Paneer and milk add protein'],['Rajma-rice, curd and salad','Rajma and curd provide protein'],['Greek-style/high-protein curd and fruit','Curd provides protein'],['Roti, paneer tikka and vegetables','Paneer is the main protein source']],
+       [['Oats, milk, nuts and seeds','Milk and nuts add protein'],['Soy-chunk pulao with curd','Soy and curd provide protein'],['Roasted chana and lassi','Chana and dairy add protein'],['Roti, paneer bhurji and sabzi','Paneer provides protein']],
+       [['Besan chilla stuffed with paneer','Besan and paneer add protein'],['Chole-rice, curd and salad','Chickpeas and curd add protein'],['Milk and nuts','Milk and nuts add protein'],['Tofu or paneer stir-fry with roti','Tofu/paneer provides protein']],
+       [['Paneer sandwich and milk','Paneer and milk add protein'],['Dal, rice, curd and sabzi','Dal and curd add protein'],['Sattu drink and nuts','Sattu and nuts add protein'],['Soy chunks with rice and vegetables','Soy chunks provide protein']],
+       [['Overnight oats with milk and peanuts','Milk and peanuts add protein'],['Rajma bowl with curd','Rajma and curd provide protein'],['Paneer cubes and fruit','Paneer adds protein'],['Paneer tikka, roti and vegetables','Paneer provides protein']],
+       [['Moong dal chilla with curd','Dal and curd add protein'],['Soy keema with roti','Soy provides protein'],['Milk and banana','Milk adds protein'],['Dal, rice and paneer side','Dal and paneer add protein']],
+       [['Paneer bhurji roll and milk','Paneer and milk add protein'],['Chole, rice, curd and vegetables','Chickpeas and curd add protein'],['Nuts and roasted chana','Adds protein and energy'],['Tofu/paneer curry with roti','Tofu/paneer provides protein']]
+      ],
+      flexible:[]
+    },
+    vegan:{low:[],medium:[],high:[],flexible:[]},
+    nonvegetarian:{low:[],medium:[],high:[],flexible:[]}
    };
-   const food=options[preference]||options.vegetarian;
-   const goalText={gain:'For gradual weight gain, add a little extra energy to meals you already manage comfortably, such as an extra roti, rice, peanuts or a snack. Increase portions gradually.',maintain:'For maintenance, aim for regular meals with a mix of grains, protein foods, vegetables or fruit, and fats.',lose:'For weight loss, avoid crash diets or skipping meals. Use balanced portions and consider professional advice, especially if you are under 18.',boxing:'For boxing, eat regular meals and snacks around training. Include carbohydrates for energy and protein foods across the day.'}[goal];
-   const choose=(arr,i)=>arr[i%arr.length];
-   let html='<h2>Your daily meal outline</h2><p class="sub">A flexible starting point, not a strict prescription. Swap options for foods you actually have.</p><div class="grid">';
-   const cards=[['Breakfast',choose(food.breakfast,0)],['Lunch',choose(food.lunch,budget==='flexible'?1:0)],['Snack',choose(food.snack,budget==='medium'?1:0)],['Dinner',choose(food.dinner,budget==='flexible'?1:0)]];
+   // Keep the food list realistic by preference; protein is deliberately named in each meal rather than left to chance.
+   const veganDays=[
+    [['Besan chilla and banana','Besan provides protein'],['Dal, rice and seasonal sabzi','Dal provides protein'],['Roasted chana and fruit','Chana adds protein'],['Soy chunks with roti and vegetables','Soy chunks are protein-rich']],
+    [['Peanut-butter toast and fortified soy milk','Peanuts and soy milk add protein'],['Chole-rice bowl','Chickpeas provide protein'],['Sattu drink','Sattu provides protein'],['Tofu bhurji with roti','Tofu provides protein']],
+    [['Oats with soy milk, peanuts and banana','Soy milk and peanuts add protein'],['Rajma-rice with vegetables','Rajma provides protein'],['Roasted chana','Protein-rich snack'],['Dal khichdi with peanuts','Dal adds protein']],
+    [['Moong dal chilla','Moong dal provides protein'],['Soy keema with roti','Soy provides protein'],['Peanuts and fruit','Peanuts add protein'],['Chana masala with rice','Chickpeas provide protein']],
+    [['Sattu drink and toast','Sattu provides protein'],['Lobia-rice with vegetables','Lobia provides protein'],['Roasted chana and banana','Chana adds protein'],['Tofu and vegetable roti roll','Tofu provides protein']],
+    [['Besan cheela','Besan provides protein'],['Dal, rice and sabzi','Dal provides protein'],['Peanut chikki and fruit','Peanuts add some protein'],['Soy chunks pulao','Soy chunks provide protein']],
+    [['Poha with peanuts','Peanuts add protein'],['Chole with roti','Chickpeas provide protein'],['Sattu or roasted chana','Sattu/chana adds protein'],['Rajma-rice with vegetables','Rajma provides protein']]
+   ];
+   const nonvegDays=[
+    [['Egg bhurji with roti and fruit','Eggs provide protein'],['Dal, rice and egg curry','Dal and eggs provide protein'],['Roasted chana and banana','Chana adds protein'],['Chicken or soy curry with roti','Chicken/soy provides protein']],
+    [['Boiled eggs, toast and milk','Eggs and milk add protein'],['Chicken-rice bowl with vegetables','Chicken provides protein'],['Curd and fruit','Curd adds protein'],['Dal, roti and egg bhurji','Dal and eggs provide protein']],
+    [['Omelette and roti','Eggs provide protein'],['Rajma-rice with curd','Rajma and curd add protein'],['Boiled eggs or roasted chana','Adds protein'],['Fish or egg curry with rice','Fish/eggs provide protein']],
+    [['Milk, peanut-butter toast and banana','Milk and peanuts add protein'],['Egg curry, rice and vegetables','Eggs provide protein'],['Roasted chana and fruit','Chana adds protein'],['Chicken/soy keema with roti','Chicken/soy provides protein']],
+    [['Egg sandwich and fruit','Eggs provide protein'],['Dal-rice with chicken or eggs','Dal and chicken/eggs add protein'],['Milk and banana','Milk adds protein'],['Fish or egg bhurji with roti','Fish/eggs provide protein']],
+    [['Besan chilla and boiled eggs','Besan and eggs add protein'],['Chicken/soy pulao and vegetables','Chicken/soy provides protein'],['Curd or roasted chana','Adds protein'],['Dal, roti and omelette','Dal and eggs provide protein']],
+    [['Omelette toast and milk','Eggs and milk add protein'],['Chole-rice and egg','Chickpeas and egg add protein'],['Fruit and roasted chana','Chana adds protein'],['Chicken/fish curry or egg curry with roti','Provides protein']]
+   ];
+   const veganPremium=[
+    [['Tofu scramble, toast and fortified soy milk','Tofu and soy milk add protein'],['Tofu bowl with rice and vegetables','Tofu provides protein'],['Soy yogurt or roasted edamame if available','Soy adds protein'],['Soy-chunk curry with roti','Soy chunks are protein-rich']],
+    [['Overnight oats with soy milk, chia and peanut butter','Soy milk and peanut butter add protein'],['Tempeh/tofu rice bowl with vegetables','Tofu/tempeh provides protein'],['Roasted soy nuts and fruit','Soy nuts add protein'],['Tofu tikka with roti','Tofu provides protein']],
+    [['Besan-paneer-style tofu chilla','Besan and tofu add protein'],['Soy keema with rice','Soy provides protein'],['Fortified soy milk and banana','Soy milk adds protein'],['Tofu curry with roti and vegetables','Tofu provides protein']],
+    [['Tofu sandwich and soy milk','Tofu and soy milk add protein'],['Lentil bowl with tofu and rice','Lentils and tofu add protein'],['Hummus with bread or roasted chana','Chickpeas add protein'],['Soy chunks pulao','Soy chunks provide protein']],
+    [['Oats, soy milk, nuts and seeds','Soy milk and nuts add protein'],['Chickpea and tofu bowl','Chickpeas and tofu add protein'],['Roasted edamame or soy nuts','Soy adds protein'],['Tofu bhurji roll','Tofu provides protein']],
+    [['Moong chilla with tofu filling','Moong dal and tofu add protein'],['Soy-chunk biryani with vegetables','Soy chunks provide protein'],['Peanut-butter toast and soy milk','Peanuts and soy milk add protein'],['Dal, rice and tofu side','Dal and tofu add protein']],
+    [['Tofu bhurji wrap and fortified soy milk','Tofu and soy milk add protein'],['Rajma-rice with tofu cubes','Rajma and tofu add protein'],['Soy yogurt and fruit','Soy yogurt adds protein'],['Soy keema with roti','Soy provides protein']]
+   ];
+   const nonvegPremium=[
+    [['Eggs, wholegrain toast and milk','Eggs and milk add protein'],['Chicken bowl with rice and vegetables','Chicken provides protein'],['Greek-style curd and fruit','Curd adds protein'],['Fish curry with rice and vegetables','Fish provides protein']],
+    [['Omelette, toast and yogurt','Eggs and yogurt add protein'],['Chicken/egg wrap with salad','Chicken/eggs provide protein'],['Milk and nuts','Milk adds protein'],['Fish or chicken with roti','Fish/chicken provides protein']],
+    [['Oats with milk and boiled eggs','Milk and eggs add protein'],['Fish-rice bowl and vegetables','Fish provides protein'],['Curd and roasted chana','Adds protein'],['Chicken curry with roti','Chicken provides protein']],
+    [['Egg sandwich and milk','Eggs and milk add protein'],['Chicken pulao with raita','Chicken and raita add protein'],['Yogurt and fruit','Yogurt adds protein'],['Fish tikka with roti and vegetables','Fish provides protein']],
+    [['Paneer/egg bhurji toast and milk','Egg/paneer and milk add protein'],['Chicken with rice and dal','Chicken and dal add protein'],['Boiled eggs and fruit','Eggs provide protein'],['Fish curry, roti and vegetables','Fish provides protein']],
+    [['Omelette wrap and yogurt','Eggs and yogurt add protein'],['Chicken or fish bowl with rice','Chicken/fish provides protein'],['Milk, banana and peanut butter','Milk and peanuts add protein'],['Egg curry with roti and dal','Eggs and dal provide protein']],
+    [['Eggs on toast and milk','Eggs and milk add protein'],['Chicken/egg biryani with raita','Chicken/eggs and raita add protein'],['Curd and nuts','Curd adds protein'],['Fish or chicken curry with roti','Fish/chicken provides protein']]
+   ];
+   if(preference==='vegan'){
+     foodSets.vegan.low=veganDays; foodSets.vegan.medium=veganPremium; foodSets.vegan.high=veganPremium; foodSets.vegan.flexible=veganPremium;
+   } else if(preference==='nonvegetarian'){
+     foodSets.nonvegetarian.low=nonvegDays; foodSets.nonvegetarian.medium=nonvegPremium; foodSets.nonvegetarian.high=nonvegPremium; foodSets.nonvegetarian.flexible=nonvegPremium;
+   } else {
+     foodSets.vegetarian.flexible=foodSets.vegetarian.high;
+   }
+   const days=foodSets[preference]||foodSets.vegetarian;
+   const selected=days[budget]||days.low;
+   const dayNames=['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
+   const mealLabels=[['Breakfast','☀️'],['Lunch','🍛'],['Snack','🍌'],['Dinner','🌙'],['Extra snack','🥜']];
    const count=meals===3?3:meals===5?5:4;
-   cards.forEach((c,i)=>{if(i===2&&count===3)return;html+='<div class="coachbox"><h3>'+c[0]+'</h3><p>'+c[1]+'</p></div>';if(i===3&&count===5)html+='<div class="coachbox"><h3>Extra snack</h3><p>'+choose(food.snack,2)+'</p></div>';});
-   html+='</div><div class="notice" style="margin-top:14px"><strong>Goal note:</strong> '+goalText+'</div>';
-   if(avoid)html+='<p class="small"><strong>Foods to avoid entered:</strong> '+safeText(avoid)+'. Check ingredients and cross-contamination where allergies are involved. The sample ideas above are not automatically filtered for every restriction, so skip anything that conflicts.</p>';
-   html+='<p class="small">Budget setting: '+(budget==='low'?'budget-friendly staples':budget==='medium'?'moderate-cost variety':'flexible options')+'. Choose what is available locally; no special supplements are required to use this outline.</p>';
+   const goalText={gain:'For gradual weight gain, add a little extra energy to meals you already manage, while keeping a protein source in each main meal.',maintain:'Aim for regular meals with carbohydrates, a protein source, vegetables or fruit, and some fats.',lose:'Avoid crash diets or skipping meals. Keep protein in meals and use age-appropriate guidance; weight-loss plans are not suitable for everyone.',boxing:'Pair carbohydrates for training energy with protein foods across the day. Have a regular meal or snack after training.'}[goal];
+   const budgetLabel={low:'₹80–₹120/day',medium:'₹120–₹180/day',high:'₹180–₹250/day',flexible:'₹250+/day'}[budget]||'Budget varies by location';
+   const chooseDay=selected;
+   let html='<div class="diet-week-head"><div><span class="diet-eyebrow">YOUR 7-DAY PLAN</span><h2>Weekly meal plan</h2><p class="sub">Every day includes named protein sources. Portions and protein amounts depend on serving size.</p><div class="diet-week-meta"><span class="diet-chip">'+safeText(budgetLabel)+'</span><span class="diet-chip">'+(preference==='vegan'?'Vegan':preference==='nonvegetarian'?'Non-vegetarian':'Vegetarian')+'</span><span class="diet-chip">7 days</span></div></div><span class="diet-result-mark">✓</span></div><div class="diet-week-list">';
+   dayNames.forEach((day,i)=>{
+     const row=chooseDay[i%chooseDay.length];
+     const mealsForDay=[row[0],row[1],row[2],row[3]];
+     if(count===5)mealsForDay.push(row[2]);
+     if(count===3)mealsForDay.splice(2,1);
+     html+='<article class="diet-day-card '+(i===0?'is-open':'')+'"><button type="button" class="diet-day-title" aria-expanded="'+(i===0?'true':'false')+'" aria-controls="diet-day-meals-'+i+'"><span class="diet-day-num">'+(i+1)+'</span><h3>'+day+'</h3><span class="diet-day-chevron" aria-hidden="true">⌄</span></button><div class="diet-day-meals" id="diet-day-meals-'+i+'" '+(i===0?'':'hidden')+'>';
+     mealsForDay.forEach((item,j)=>{const mi=count===3&&j===2?3:j;const label=mealLabels[mi]||mealLabels[3];html+='<div class="diet-week-meal"><span class="meal-label">'+label[1]+' '+label[0]+'</span><p>'+safeText(item[0])+'</p><span class="diet-protein">✓ '+safeText(item[1])+'</span></div>';});
+     html+='</div></article>';
+   });
+   html+='</div><div class="diet-goal-note"><strong>Goal guidance</strong><p>'+safeText(goalText)+'</p></div>';
+   if(avoid)html+='<p class="diet-restriction"><strong>Foods to avoid entered:</strong> '+safeText(avoid)+'. This sample plan cannot automatically detect every ingredient in a mixed dish, so swap any conflicting meal. For allergies, check labels and cross-contamination.</p>';
+   html+='<p class="diet-budget-note">Budget is a rough planning range per person per day, not a live price quote. Local prices, portions and canteen access vary. If an item is too expensive, swap it for dal, chana, rajma, roasted chana, sattu, eggs, soy chunks or another protein food that fits your preference.</p><p class="diet-footnote">This is a flexible food guide, not medical nutrition care. If weight is dropping unexpectedly, you feel unwell, or you need a medically tailored plan, consult a qualified healthcare professional.</p><button type="button" class="btn secondary diet-edit-btn" id="editDietPlan">← Edit plan</button>';
    $('dietPlanResult').innerHTML=html;
+   // Accordion: keep the weekly list compact. Opening one day closes the others;
+   // tapping the open day collapses it too. Monday starts open.
+   $('dietPlanResult').querySelectorAll('.diet-day-title').forEach(toggle=>{
+     toggle.addEventListener('click',()=>{
+       const card=toggle.closest('.diet-day-card');
+       const wasOpen=card.classList.contains('is-open');
+       $('dietPlanResult').querySelectorAll('.diet-day-card').forEach(other=>{
+         other.classList.remove('is-open');
+         const head=other.querySelector('.diet-day-title');
+         const body=other.querySelector('.diet-day-meals');
+         head.setAttribute('aria-expanded','false');
+         body.hidden=true;
+       });
+       if(!wasOpen){
+         card.classList.add('is-open');
+         toggle.setAttribute('aria-expanded','true');
+         card.querySelector('.diet-day-meals').hidden=false;
+       }
+     });
+   });
+   $('editDietPlan').addEventListener('click',()=>{
+     const panel=$('dietPlanFormPanel'), result=$('dietPlanResult');
+     const top=result.getBoundingClientRect().top;
+     panel.classList.remove('hidden');result.classList.add('hidden');
+     data.dietSettings={...d,generated:false};persist();
+     requestAnimationFrame(()=>{const newTop=panel.getBoundingClientRect().top;window.scrollBy(0,newTop-top);});
+   });
  }
- $('buildDietPlan').addEventListener('click',()=>{const d={preference:$('dietPlanPreference').value,goal:$('dietGoal').value,budget:$('dietBudget').value,meals:$('dietMeals').value,restrictions:$('dietRestrictions').value.trim(),generated:true};data.dietSettings=d;const ok=persist();renderDietPlan(d);$('dietPlanMessage').textContent=ok?'Meal outline saved on this device.':'Meal outline created, but browser storage could not save it.';});
+ $('buildDietPlan').addEventListener('click',()=>{
+   const button=$('buildDietPlan'), message=$('dietPlanMessage'), formPanel=$('dietPlanFormPanel'), result=$('dietPlanResult');
+   const anchor=formPanel.getBoundingClientRect().top;
+   const d={preference:$('dietPlanPreference').value,goal:$('dietGoal').value,budget:$('dietBudget').value,meals:$('dietMeals').value,restrictions:$('dietRestrictions').value.trim(),generated:true};
+   data.dietSettings=d;const ok=persist();button.disabled=true;button.textContent='Building your week…';message.textContent='';
+   let loader=document.getElementById('dietLoadingPopup');
+   if(!loader){loader=document.createElement('div');loader.id='dietLoadingPopup';loader.className='diet-loading-backdrop';loader.setAttribute('role','status');loader.setAttribute('aria-live','polite');loader.innerHTML='<div class="diet-loading-card"><span class="diet-spinner"></span><strong>Building your weekly plan</strong><span class="small">Balancing meals, protein and your budget…</span></div>';document.body.appendChild(loader);}
+   loader.classList.add('visible');
+   window.setTimeout(()=>{
+     renderDietPlan(d);formPanel.classList.add('hidden');result.classList.remove('hidden');loader.classList.remove('visible');button.disabled=false;button.textContent='Build my meal plan';
+     message.textContent=ok?'Weekly plan saved on this device.':'Plan created, but browser storage could not save it.';
+     requestAnimationFrame(()=>{const newTop=result.getBoundingClientRect().top;window.scrollBy(0,newTop-anchor);});
+   },650);
+ });
  $('saveProfile').addEventListener('click',saveProfile);
  $('avatarStyle').addEventListener('change',()=>{data.profile.avatarStyle=$('avatarStyle').value;data.profile.photo='';updateAvatar();persist()});
  $('profilePhoto').addEventListener('change',e=>{const f=e.target.files&&e.target.files[0];if(!f)return;const allowed=['image/jpeg','image/png','image/webp','image/gif'];if(!allowed.includes(f.type)){$('profileMessage').textContent='Use a JPG, PNG, WEBP or GIF image.';e.target.value='';return}if(f.size>1200000){$('profileMessage').textContent='Choose an image under 1.2 MB so local storage is not overloaded.';e.target.value='';return}const reader=new FileReader();reader.onload=()=>{const img=new Image();img.onload=()=>{if(img.width<32||img.height<32||img.width>6000||img.height>6000){$('profileMessage').textContent='Image dimensions must be between 32 and 6000 pixels.';e.target.value='';return}data.profile.photo=reader.result;updateAvatar();if(!persist())$('profileMessage').textContent='Picture loaded but could not be saved; try a smaller image.';else $('profileMessage').textContent='Image loaded. Please ensure it is appropriate; content moderation is not available offline.'};img.onerror=()=>{$('profileMessage').textContent='That image could not be read.';e.target.value=''};img.src=reader.result};reader.readAsDataURL(f)});
  function renderBadges(){const el=$('profileBadges');if(!el)return;const earned=[{ok:(data.trainingDates||[]).length>=1,icon:'🥊',name:'First Round',desc:'Log your first training day'},{ok:(data.trainingDates||[]).length>=7,icon:'🔥',name:'Seven Sessions',desc:'Train on seven different days'},{ok:(data.completed||[]).length>=1,icon:'📘',name:'Student',desc:'Complete your first lesson'},{ok:calcStreak()>=3,icon:'⚡',name:'3-Day Streak',desc:'Train three days in a row'},{ok:calcStreak()>=7,icon:'👑',name:'One Week',desc:'Keep a seven-day streak'}];el.innerHTML=earned.map(b=>`<div class=\"badge-card ${b.ok?'':'locked'}\"><div class=\"badge-emoji\">${b.icon}</div><strong>${b.name}</strong><div class=\"small\">${b.ok?'Unlocked':b.desc}</div></div>`).join('');}
  function dateKey(d=new Date()){return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`}
  function calcStreak(){const set=new Set(data.trainingDates||[]);let d=new Date();let key=dateKey(d);if(!set.has(key)){d.setDate(d.getDate()-1);key=dateKey(d);if(!set.has(key))return 0}let n=0;while(set.has(key)&&n<500){n++;d.setDate(d.getDate()-1);key=dateKey(d)}return n}
- function renderProgress(){const start=data.profile.startDate;let days=0;if(start){const a=new Date(start+'T00:00:00');const b=new Date();b.setHours(0,0,0,0);if(!isNaN(a))days=Math.max(0,Math.floor((b-a)/86400000)+1)}$('progTotalDays').textContent=days;$('progStreak').textContent=calcStreak()+' days';$('progTrainingDays').textContent=(data.trainingDates||[]).length;$('progLessons').textContent=data.completed.length;const today=new Date();const dow=today.getDay();const mondayOffset=(dow+6)%7;const monday=new Date(today);monday.setDate(today.getDate()-mondayOffset);$('weekCalendar').innerHTML=Array.from({length:7},(_,i)=>{const d=new Date(monday);d.setDate(monday.getDate()+i);const k=dateKey(d);const label=['Mon','Tue','Wed','Thu','Fri','Sat','Sun'][i];return `<span class="day-chip ${(data.trainingDates||[]).includes(k)?'done':''}">${label} ${d.getDate()} ${(data.trainingDates||[]).includes(k)?'🥊':''}</span>`}).join('');renderLessons();}
+ function renderProgress(){const start=data.profile.startDate;let days=0;if(start){const a=new Date(start+'T00:00:00');const b=new Date();b.setHours(0,0,0,0);if(!isNaN(a))days=Math.max(0,Math.floor((b-a)/86400000)+1)}$('progTotalDays').textContent=days;$('progStreak').textContent=calcStreak()+' days';$('progTrainingDays').textContent=(data.trainingDates||[]).length;$('progLessons').textContent=academyDone.length;const today=new Date();const dow=today.getDay();const mondayOffset=(dow+6)%7;const monday=new Date(today);monday.setDate(today.getDate()-mondayOffset);$('weekCalendar').innerHTML=Array.from({length:7},(_,i)=>{const d=new Date(monday);d.setDate(monday.getDate()+i);const k=dateKey(d);const label=['Mon','Tue','Wed','Thu','Fri','Sat','Sun'][i];return `<span class="day-chip ${(data.trainingDates||[]).includes(k)?'done':''}">${label} ${d.getDate()} ${(data.trainingDates||[]).includes(k)?'🥊':''}</span>`}).join('');renderLessons();}
  $('markTraining').addEventListener('click',()=>{const mins=Number($('trainingMinutes').value)||0;if(mins<25){$('progressMessage').textContent='A session counts toward your streak at 25 minutes or more. Keep training safely, then log it.';return}const k=dateKey();if(!data.trainingDates.includes(k)){data.trainingDates.push(k);data.trainingDates.sort()}data.trainingSessions=data.trainingSessions||[];data.trainingSessions.push({date:k,minutes:mins,source:'manual'});persist();$('progressMessage').textContent='Session logged. Today counts toward your streak. Recover well, too.';renderProgress();renderBadges();});
  $('clearTraining').addEventListener('click',()=>{if(confirm('Clear all saved training dates? This cannot be undone.')){data.trainingDates=[];data.trainingSessions=[];persist();renderProgress();renderBadges();$('progressMessage').textContent='Training history cleared.'}});
  $('buildWorkout').addEventListener('click',()=>{const goal=$('workoutGoal').value,place=$('workoutPlace').value,days=Number($('workoutDays').value),mins=Number($('workoutMinutes').value),limit=$('limitations').value.trim();let moves=place==='gym'?['Warm-up: easy skipping or brisk walking','Boxing technique with a coach or light shadowboxing','Controlled bag work only if you know safe technique','Basic strength and mobility','Cool down and breathe']:place==='homekit'?['Warm-up and joint mobility','Shadowboxing with controlled technique','Squats and incline or regular push-ups as appropriate','Core stability and footwork','Cool down and breathe']:['Warm-up and joint mobility','Easy shadowboxing and stance resets','Bodyweight squats and suitable push-up variation','Low-impact footwork and core stability','Cool down and breathe'];if(goal==='Amateur boxing preparation')moves.splice(2,0,'Prioritise coached technical sessions; do not use this plan as competition clearance');const blocks=moves.map((m,i)=>`<li><strong>${safeText(m)}</strong> <span class="small">${Math.max(2,Math.floor(mins/moves.length))} min</span></li>`).join('');$('workoutOutput').classList.remove('hidden');$('workoutOutput').innerHTML=`<h3>Your ${mins}-minute starter session</h3><p class="small">Goal: ${safeText(goal)} • ${safeText(place)} • ${days} days/week</p><ol>${blocks}</ol>${limit?`<p class="notice">You noted: ${safeText(limit)}. Avoid movements that aggravate symptoms and get professional advice when needed.</p>`:''}<p class="small">Start at an easy pace, rest as needed, and stop if you feel pain, dizziness or unusual shortness of breath. For amateur boxing, train with a qualified coach.</p><button class="btn secondary" id="workoutDone">Mark session complete</button>`;$('workoutDone').addEventListener('click',()=>{const k=dateKey();if(!data.trainingDates.includes(k))data.trainingDates.push(k);data.trainingSessions=data.trainingSessions||[];data.trainingSessions.push({date:k,minutes:mins,source:'planned-workout'});persist();renderProgress();renderBadges();$('workoutOutput').insertAdjacentHTML('beforeend','<p class="success-note">Planned workout completed and added to today’s training streak.</p>')})});
